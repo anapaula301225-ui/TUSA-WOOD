@@ -1,0 +1,62 @@
+
+# ==========================================
+# VARIABLES DE ENTORNO Y CREDENCIALES
+# ==========================================
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Permitir plantillas sin secretos
+!.env.example
+!**/.env.example
+
+# ==========================================
+# DEPENDENCIAS
+# ==========================================
+node_modules/
+**/node_modules/
+
+# ==========================================
+# COMPILACIONES
+# ==========================================
+dist/
+**/dist/
+dist-ssr/
+coverage/
+
+# ==========================================
+# RESPALDOS DE BASE DE DATOS
+# ==========================================
+*.dump
+*.backup
+*.bak
+*.sql.gz
+
+# ==========================================
+# ALMACENAMIENTO Y DOCUMENTOS GENERADOS
+# ==========================================
+backend/storage/*
+!backend/storage/cotizaciones/
+
+# Bloquear todo el contenido de cotizaciones
+backend/storage/cotizaciones/*
+!backend/storage/cotizaciones/logo-tusa-wood.png
+
+# Permitir únicamente este archivo auxiliar
+!backend/storage/.gitkeep
+
+# ==========================================
+# REGISTROS
+# ==========================================
+*.log
+logs/
+
+# ==========================================
+# EDITORES Y SISTEMA
+# ==========================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.local

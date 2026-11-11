@@ -1,0 +1,1028 @@
+/* ==========================================================
+   TUSA WOOD · Admin Login (estilo alineado con el Home)
+   La tipografía se hereda del sitio (no se define aquí).
+   ========================================================== */
+
+:root {
+  --tusa-dark: #22272c;
+  --tusa-dark-soft: #30363d;
+  --tusa-orange: #f07832;
+  --tusa-orange-light: #ff9a5b;
+  --tusa-white: #ffffff;
+  --tusa-gray: #f0f1f2;
+  --tusa-steel: #454b52;
+  --tusa-muted: #8b9299;
+  --tusa-border: rgba(34, 39, 44, 0.12);
+
+  --tusa-radius: 18px;
+  --tusa-shadow: 0 20px 55px rgba(25, 30, 35, 0.09);
+  --tusa-transition: 0.3s ease;
+
+  --tusa-line: rgba(255, 255, 255, 0.1);
+  --tusa-danger: #ff7b6e;
+  --tusa-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Base ---------- */
+
+.admin-login,
+.admin-login *,
+.admin-login *::before,
+.admin-login *::after {
+  box-sizing: border-box;
+}
+
+.admin-login {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.25rem, 6vw, 6rem);
+  color: var(--tusa-white);
+  background:
+    radial-gradient(
+      ellipse 60% 70% at 100% 0%,
+      rgba(240, 120, 50, 0.3),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 0% 100%,
+      rgba(240, 120, 50, 0.08),
+      transparent 60%
+    ),
+    linear-gradient(160deg, var(--tusa-dark-soft) 0%, var(--tusa-dark) 70%);
+  overflow-x: hidden;
+}
+
+/* Puntos sutiles como en el home */
+.admin-login::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.14) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 96px 96px;
+  background-position: 30px 30px;
+  mask-image: linear-gradient(180deg, #000 30%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 100%);
+  pointer-events: none;
+}
+
+.admin-login a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- Animaciones ---------- */
+
+@keyframes tusa-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--tusa-rise-y, 22px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tusa-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tusa-glow {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-4%, 6%) scale(1.12);
+  }
+}
+
+@keyframes tusa-line-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes tusa-corner {
+  from {
+    opacity: 0;
+    transform: translate(-12px, 12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes tusa-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-7px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes tusa-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes tusa-shine {
+  from {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  to {
+    transform: translateX(320%) skewX(-20deg);
+  }
+}
+
+/* ==========================================================
+   Lado izquierdo (mensaje)
+   ========================================================== */
+
+.admin-login-visual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+  align-self: stretch;
+  min-height: 0;
+}
+
+/* Brillo naranja que respira detrás del mensaje */
+.admin-login-visual::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: -15%;
+  width: 55%;
+  aspect-ratio: 1;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(240, 120, 50, 0.16),
+    transparent 65%
+  );
+  filter: blur(40px);
+  animation: tusa-glow 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.admin-login-overlay {
+  display: none;
+}
+
+/* ---------- Marca ---------- */
+
+.admin-login-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: fit-content;
+  animation: tusa-rise 0.8s var(--tusa-ease-out) both;
+}
+
+/* Logo TW real, sin cuadro, como en la barra del home */
+.admin-login-logo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 3.9rem;
+  height: 3.9rem;
+  transition: transform 0.4s var(--tusa-ease-out);
+}
+
+/* Halo naranja detrás del logo */
+.admin-login-logo::before {
+  content: '';
+  position: absolute;
+  inset: -18%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(240, 120, 50, 0.38),
+    rgba(240, 120, 50, 0) 68%
+  );
+  filter: blur(6px);
+  opacity: 0.75;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s var(--tusa-ease-out);
+}
+
+.admin-login-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.admin-login-brand:hover .admin-login-logo {
+  transform: rotate(-5deg) scale(1.08);
+}
+
+.admin-login-brand:hover .admin-login-logo::before {
+  opacity: 1;
+  transform: scale(1.25);
+}
+
+.admin-login-brand strong {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  color: var(--tusa-white);
+}
+
+.admin-login-brand strong span {
+  color: var(--tusa-orange-light);
+}
+
+.admin-login-brand small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--tusa-muted);
+}
+
+/* ---------- Mensaje principal ---------- */
+
+.admin-login-message {
+  max-width: 38rem;
+}
+
+.admin-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--tusa-orange-light);
+}
+
+/* Línea naranja antes del texto, igual que el home */
+.admin-status-dot {
+  display: block;
+  width: 2.2rem;
+  height: 2px;
+  background: var(--tusa-orange);
+  transform-origin: left center;
+  animation: tusa-line-grow 0.9s 0.3s var(--tusa-ease-out) both;
+}
+
+.admin-login-message > .admin-eyebrow {
+  animation: tusa-rise 0.8s 0.15s var(--tusa-ease-out) both;
+}
+
+/* Prefijo .admin-login para ganar a cualquier estilo global de h1/h2/p */
+.admin-login .admin-login-message h1 {
+  margin: 1.4rem 0 1.4rem;
+  font-size: clamp(2.5rem, 5.2vw, 4.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--tusa-white);
+  animation: tusa-rise 0.9s 0.28s var(--tusa-ease-out) both;
+}
+
+.admin-login .admin-login-message h1 span {
+  color: var(--tusa-orange-light);
+}
+
+.admin-login .admin-login-message p {
+  max-width: 29rem;
+  margin: 0 0 2rem;
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.72);
+  animation: tusa-rise 0.9s 0.42s var(--tusa-ease-out) both;
+}
+
+.admin-login-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.4rem 1.2rem 0.4rem 0.4rem;
+  border: 1px solid rgba(240, 120, 50, 0.45);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  animation: tusa-rise 0.9s 0.56s var(--tusa-ease-out) both;
+  transition:
+    background var(--tusa-transition),
+    border-color var(--tusa-transition);
+}
+
+.admin-login-feature svg {
+  flex-shrink: 0;
+  box-sizing: content-box;
+  padding: 0.6rem;
+  border-radius: 50%;
+  background: rgba(240, 120, 50, 0.14);
+  color: var(--tusa-orange-light);
+}
+
+.admin-login-feature:hover {
+  border-color: var(--tusa-orange);
+  background: rgba(240, 120, 50, 0.08);
+}
+
+.admin-login-footer {
+  font-size: 0.78rem;
+  color: var(--tusa-muted);
+  animation: tusa-fade 1.2s 0.8s both;
+}
+
+/* ==========================================================
+   Lado derecho (tarjeta del formulario)
+   ========================================================== */
+
+.admin-login-panel {
+  display: grid;
+  place-items: center;
+}
+
+.admin-login-form-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  padding: clamp(1.8rem, 3.5vw, 2.8rem);
+  border: 1px solid var(--tusa-line);
+  border-radius: 14px;
+  background: linear-gradient(
+    160deg,
+    rgba(48, 54, 61, 0.85),
+    rgba(34, 39, 44, 0.85)
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  animation: tusa-rise 0.9s 0.2s var(--tusa-ease-out) both;
+}
+
+/* Marco naranja en la esquina, igual que la imagen del home */
+.admin-login-form-wrap::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 7rem;
+  height: 7rem;
+  border-top: 3px solid var(--tusa-orange);
+  border-right: 3px solid var(--tusa-orange);
+  border-top-right-radius: 4px;
+  pointer-events: none;
+  animation: tusa-corner 0.9s 0.7s var(--tusa-ease-out) both;
+}
+
+.admin-login-mobile-brand {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.6rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  color: var(--tusa-white);
+}
+
+.admin-login-mobile-brand .admin-login-logo {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.admin-login-mobile-brand strong span {
+  color: var(--tusa-orange-light);
+}
+
+/* ---------- Encabezado del formulario ---------- */
+
+.admin-form-heading {
+  margin-bottom: 1.8rem;
+}
+
+.admin-form-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(240, 120, 50, 0.5);
+  border-radius: 50%;
+  background: rgba(240, 120, 50, 0.1);
+  color: var(--tusa-orange-light);
+  transition: transform var(--tusa-transition);
+}
+
+.admin-login-form-wrap:hover .admin-form-icon {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.admin-form-heading .admin-eyebrow {
+  font-size: 0.68rem;
+}
+
+.admin-login .admin-form-heading h2 {
+  margin: 0.7rem 0 0.4rem;
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--tusa-white);
+}
+
+.admin-login .admin-form-heading p {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--tusa-muted);
+}
+
+/* ---------- Formulario ---------- */
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-login-form label {
+  margin: 0 0 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.admin-login-form label:not(:first-child) {
+  margin-top: 1.1rem;
+}
+
+.admin-login-form input {
+  width: 100%;
+  height: 3.2rem;
+  padding: 0 1rem;
+  border: 1.5px solid var(--tusa-line);
+  border-radius: 8px;
+  background: rgba(34, 39, 44, 0.8);
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--tusa-white);
+  outline: none;
+  transition:
+    border-color var(--tusa-transition),
+    background var(--tusa-transition),
+    box-shadow var(--tusa-transition);
+}
+
+.admin-login-form input::placeholder {
+  color: var(--tusa-muted);
+}
+
+.admin-login-form input:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.admin-login-form input:focus {
+  border-color: var(--tusa-orange);
+  background: rgba(34, 39, 44, 1);
+  box-shadow: 0 0 0 4px rgba(240, 120, 50, 0.18);
+}
+
+.admin-login-form input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Evita el fondo blanco/amarillo del autocompletado del navegador */
+.admin-login-form input:-webkit-autofill,
+.admin-login-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--tusa-white);
+  caret-color: var(--tusa-white);
+  box-shadow: 0 0 0 1000px #22272c inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* ---------- Campo de contraseña ---------- */
+
+.admin-password-field {
+  position: relative;
+}
+
+.admin-password-field input {
+  padding-right: 3.3rem;
+}
+
+.admin-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.45rem;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--tusa-muted);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    color var(--tusa-transition),
+    background var(--tusa-transition);
+}
+
+.admin-password-toggle:hover:not(:disabled) {
+  background: rgba(240, 120, 50, 0.14);
+  color: var(--tusa-orange-light);
+}
+
+.admin-password-toggle:focus-visible {
+  outline: 2px solid var(--tusa-orange);
+  outline-offset: 2px;
+}
+
+.admin-password-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ---------- Error ---------- */
+
+.admin-login-error {
+  margin-top: 1.1rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 123, 110, 0.3);
+  border-left: 4px solid var(--tusa-danger);
+  border-radius: 8px;
+  background: rgba(255, 123, 110, 0.08);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--tusa-danger);
+  animation: tusa-shake 0.45s ease both;
+}
+
+/* ---------- Botón principal ---------- */
+
+.admin-login-submit {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  height: 3.2rem;
+  margin-top: 1.5rem;
+  border: 0;
+  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    var(--tusa-orange),
+    var(--tusa-orange-light)
+  );
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tusa-white);
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(240, 120, 50, 0.3);
+  transition:
+    transform var(--tusa-transition),
+    box-shadow var(--tusa-transition),
+    filter var(--tusa-transition);
+}
+
+.admin-login-submit::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: translateX(-120%) skewX(-20deg);
+  pointer-events: none;
+}
+
+.admin-login-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(240, 120, 50, 0.45);
+}
+
+.admin-login-submit:hover:not(:disabled)::after {
+  animation: tusa-shine 0.9s ease;
+}
+
+.admin-login-submit svg {
+  transition: transform var(--tusa-transition);
+}
+
+.admin-login-submit:hover:not(:disabled) svg {
+  transform: translateX(5px);
+}
+
+.admin-login-submit:active:not(:disabled) {
+  transform: translateY(0) scale(0.99);
+}
+
+.admin-login-submit:focus-visible {
+  outline: 3px solid var(--tusa-white);
+  outline-offset: 3px;
+}
+
+.admin-login-submit:disabled {
+  cursor: progress;
+  filter: saturate(0.8);
+  box-shadow: 0 6px 16px rgba(240, 120, 50, 0.2);
+}
+
+/* Spinner mientras se verifica el acceso */
+.admin-login-submit:disabled::before {
+  content: '';
+  order: 2;
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 2.5px solid rgba(255, 255, 255, 0.45);
+  border-top-color: var(--tusa-white);
+  border-radius: 50%;
+  animation: tusa-spin 0.7s linear infinite;
+}
+
+/* ---------- Pie del formulario ---------- */
+
+.admin-login-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--tusa-line);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--tusa-muted);
+}
+
+.admin-login-security svg {
+  flex-shrink: 0;
+  color: var(--tusa-orange);
+}
+
+.admin-back-home {
+  display: block;
+  width: fit-content;
+  margin: 1.1rem auto 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  transition:
+    color var(--tusa-transition),
+    transform var(--tusa-transition);
+}
+
+.admin-back-home:hover {
+  color: var(--tusa-orange-light);
+  transform: translateX(-4px);
+}
+
+.admin-back-home:focus-visible,
+.admin-login-brand:focus-visible {
+  outline: 2px solid var(--tusa-orange);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+
+@media (max-width: 1100px) {
+  .admin-login {
+    gap: 2rem;
+  }
+
+  .admin-login .admin-login-message h1 {
+    font-size: clamp(2.2rem, 4.8vw, 3.2rem);
+  }
+}
+
+/* Tablet y móvil: se oculta el lado izquierdo, queda la tarjeta */
+@media (max-width: 900px) {
+  .admin-login {
+    grid-template-columns: 1fr;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .admin-login-visual {
+    display: none;
+  }
+
+  .admin-login-mobile-brand {
+    display: flex;
+  }
+
+  .admin-login-form-wrap {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-login {
+    align-items: start;
+    padding: 1rem;
+  }
+
+  .admin-login-form-wrap {
+    margin-top: 0.75rem;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .admin-login-form-wrap::before {
+    top: -10px;
+    right: -6px;
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .admin-login-form input {
+    /* 16px evita el zoom automático en iOS */
+    font-size: 1rem;
+  }
+
+  .admin-login-security {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+}
+
+/* Pantallas bajas en horizontal */
+@media (max-height: 640px) and (min-width: 901px) {
+  .admin-login-visual {
+    gap: 1rem;
+  }
+
+  .admin-login .admin-login-message h1 {
+    font-size: 2.4rem;
+    margin-block: 1rem;
+  }
+
+  .admin-login .admin-login-message p {
+    margin-bottom: 1rem;
+  }
+}
+
+/* ==========================================================
+   Animaciones continuas (ambiente)
+   ========================================================== */
+
+@keyframes tusa-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -8px;
+  }
+}
+
+@keyframes tusa-dots {
+  from {
+    background-position: 30px 30px;
+  }
+  to {
+    background-position: 126px 126px;
+  }
+}
+
+@keyframes tusa-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(240, 120, 50, 0.55);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 12px rgba(240, 120, 50, 0);
+  }
+}
+
+@keyframes tusa-sweep {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes tusa-text-flow {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+/* Puntos que se desplazan lentamente */
+.admin-login::before {
+  animation: tusa-dots 18s linear infinite;
+}
+
+/* Segundo brillo naranja arriba a la derecha */
+.admin-login::after {
+  content: '';
+  position: absolute;
+  top: -15%;
+  right: -10%;
+  z-index: -1;
+  width: min(50vw, 720px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(240, 120, 50, 0.24),
+    transparent 65%
+  );
+  filter: blur(30px);
+  pointer-events: none;
+  animation: tusa-glow 10s ease-in-out infinite;
+}
+
+/* Logo flotando suavemente */
+.admin-login-logo {
+  animation: tusa-float 4.5s ease-in-out infinite;
+}
+
+/* Acento del titular con degradado en movimiento */
+.admin-login .admin-login-message h1 span {
+  background: linear-gradient(
+    90deg,
+    var(--tusa-orange),
+    #ffc29b,
+    var(--tusa-orange-light),
+    var(--tusa-orange)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--tusa-orange-light);
+  animation: tusa-text-flow 5s linear infinite;
+}
+
+/* Anillos que pulsan en los iconos */
+.admin-login-feature svg {
+  animation: tusa-ring 2.6s ease-out infinite;
+}
+
+/* Tarjeta: entra y luego flota; línea de luz recorre el borde superior */
+.admin-login-form-wrap {
+  animation:
+    tusa-rise 0.9s 0.2s var(--tusa-ease-out) both,
+    tusa-float 8s 1.4s ease-in-out infinite;
+}
+
+.admin-login-form-wrap::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: linear-gradient(
+      90deg,
+      transparent,
+      var(--tusa-orange-light),
+      transparent
+    )
+    no-repeat;
+  background-size: 45% 100%;
+  pointer-events: none;
+  animation: tusa-sweep 3.6s 1.2s ease-in-out infinite;
+}
+
+/* ==========================================================
+   Entrada escalonada del formulario
+   ========================================================== */
+
+.admin-form-heading > *,
+.admin-login-form > :not(.admin-login-error),
+.admin-login-security,
+.admin-back-home {
+  animation: tusa-rise 0.7s var(--tusa-ease-out) backwards;
+}
+
+.admin-form-heading > .admin-form-icon {
+  animation:
+    tusa-rise 0.7s 0.45s var(--tusa-ease-out) backwards,
+    tusa-ring 2.8s 1.3s ease-out infinite;
+}
+
+.admin-form-heading > :nth-child(2) {
+  animation-delay: 0.52s;
+}
+.admin-form-heading > :nth-child(3) {
+  animation-delay: 0.6s;
+}
+.admin-form-heading > :nth-child(4) {
+  animation-delay: 0.68s;
+}
+
+.admin-login-form > :nth-child(1) {
+  animation-delay: 0.75s;
+}
+.admin-login-form > :nth-child(2) {
+  animation-delay: 0.82s;
+}
+.admin-login-form > :nth-child(3) {
+  animation-delay: 0.9s;
+}
+.admin-login-form > :nth-child(4) {
+  animation-delay: 0.97s;
+}
+.admin-login-form > .admin-login-submit {
+  animation-delay: 1.08s;
+}
+
+.admin-login-security {
+  animation-delay: 1.2s;
+}
+
+.admin-back-home {
+  animation-delay: 1.3s;
+}
+
+/* ==========================================================
+   Accesibilidad: movimiento reducido
+   Se mantienen las entradas suaves (solo fundido);
+   se detienen los bucles y el desplazamiento.
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-login {
+    --tusa-rise-y: 0px;
+  }
+
+  .admin-login::before,
+  .admin-login::after,
+  .admin-login-visual::before,
+  .admin-login-logo,
+  .admin-login-feature svg,
+  .admin-login .admin-login-message h1 span,
+  .admin-login-form-wrap::after {
+    animation: none;
+  }
+
+  .admin-login-form-wrap {
+    animation: tusa-rise 0.9s 0.2s var(--tusa-ease-out) both;
+  }
+
+  .admin-form-heading > .admin-form-icon {
+    animation: tusa-rise 0.7s 0.45s var(--tusa-ease-out) backwards;
+  }
+}

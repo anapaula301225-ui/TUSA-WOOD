@@ -1,0 +1,155 @@
+
+/* =========================================================
+   ALERTAS GLOBALES - TUSA WOOD
+   Estilo industrial moderno
+========================================================= */
+
+.tusa-alerta-popup {
+  border: 1px solid rgba(34, 39, 44, 0.10) !important;
+  border-top: 5px solid #f07832 !important;
+  border-radius: 18px !important;
+  padding: 30px !important;
+  box-shadow: 0 25px 70px rgba(25, 30, 35, 0.22) !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+.tusa-alerta-titulo {
+  color: #22272c !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 23px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.5px !important;
+}
+
+.tusa-alerta-contenido {
+  color: #68717a !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+}
+
+/* Botones */
+
+.tusa-alerta-confirmar,
+.tusa-alerta-cancelar {
+  min-height: 43px !important;
+  padding: 11px 22px !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease !important;
+}
+
+.tusa-alerta-confirmar {
+  background: linear-gradient(135deg, #f49a4d, #e87924) !important;
+}
+
+.tusa-alerta-cancelar {
+  background: #64748b !important;
+}
+
+.tusa-alerta-confirmar:hover,
+.tusa-alerta-cancelar:hover {
+  transform: translateY(-2px) !important;
+}
+
+.tusa-alerta-confirmar:hover {
+  box-shadow: 0 7px 18px rgba(240, 120, 50, 0.28) !important;
+}
+
+/* Notificaciones tipo toast */
+
+.tusa-alerta-toast {
+  border: 1px solid rgba(34, 39, 44, 0.09) !important;
+  border-left: 4px solid #f07832 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 35px rgba(25, 30, 35, 0.15) !important;
+  padding: 12px 16px !important;
+}
+
+.tusa-alerta-toast-titulo {
+  color: #263238 !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+/* Barra de tiempo del toast */
+
+.swal2-timer-progress-bar {
+  background: #f07832 !important;
+}
+
+/* Animaciones */
+
+.tusa-alerta-entrada {
+  animation: tusaAlertaEntrada 0.4s cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+.tusa-alerta-salida {
+  animation: tusaAlertaSalida 0.22s ease-in both !important;
+}
+
+@keyframes tusaAlertaEntrada {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tusaAlertaSalida {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+  .tusa-alerta-popup {
+    width: calc(100% - 24px) !important;
+    padding: 24px 18px !important;
+  }
+
+  .tusa-alerta-titulo {
+    font-size: 20px !important;
+  }
+
+  .tusa-alerta-contenido {
+    font-size: 13px !important;
+  }
+
+  .tusa-alerta-confirmar,
+  .tusa-alerta-cancelar {
+    padding: 10px 16px !important;
+  }
+}
+
+/* Accesibilidad */
+
+@media (prefers-reduced-motion: reduce) {
+  .tusa-alerta-entrada,
+  .tusa-alerta-salida {
+    animation: none !important;
+  }
+
+  .tusa-alerta-confirmar,
+  .tusa-alerta-cancelar {
+    transition: none !important;
+  }
+}

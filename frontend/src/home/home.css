@@ -1,0 +1,3399 @@
+/* =========================================================
+   TUSA WOOD · HOME
+   Paleta industrial: Carbón / Naranja / Blanco / Gris / Acero
+   Estilos para: Navbar, Hero, Nosotros, Catálogo, Servicios,
+   Ventajas, Contacto y Footer.
+========================================================= */
+
+:root {
+  --tusa-dark: #22272c;
+  --tusa-dark-soft: #30363d;
+  --tusa-orange: #f07832;
+  --tusa-orange-light: #ff9a5b;
+  --tusa-orange-pale: #ffc08e;
+  --tusa-white: #ffffff;
+  --tusa-gray: #f0f1f2;
+  --tusa-steel: #454b52;
+  --tusa-muted: #8b9299;
+  --tusa-border: rgba(34, 39, 44, 0.12);
+  --tusa-radius: 18px;
+  --tusa-shadow: 0 20px 55px rgba(25, 30, 35, 0.09);
+  --tusa-shadow-strong: 0 28px 70px rgba(25, 30, 35, 0.18);
+
+  --tw-ease: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --tw-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Altura de la barra superior. Si no tienes barra superior, ponlo en 0px */
+  --tw-nav-offset: 34px;
+}
+
+/* Permite animar el ángulo del borde luminoso del hero */
+@property --tw-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 85px;
+}
+
+/* =========================================================
+   ANIMACIONES
+========================================================= */
+
+@keyframes tw-fade-up {
+  from { opacity: 0; transform: translateY(35px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tw-fade-left {
+  from { opacity: 0; transform: translateX(45px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes tw-fade-right {
+  from { opacity: 0; transform: translateX(-35px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes tw-slide-down {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tw-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240, 120, 50, 0.38); }
+  50%      { box-shadow: 0 0 0 10px rgba(240, 120, 50, 0); }
+}
+
+@keyframes tw-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+@keyframes tw-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes tw-gradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes tw-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes tw-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}
+
+@keyframes tw-blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-40px, 30px) scale(1.12); }
+  66%      { transform: translate(25px, -25px) scale(0.94); }
+}
+
+@keyframes tw-grid-drift {
+  to { background-position: 55px 55px, 55px 55px; }
+}
+
+@keyframes tw-embers {
+  to { background-position: 0 -440px, 40px -300px; }
+}
+
+@keyframes tw-angle {
+  to { --tw-angle: 360deg; }
+}
+
+@keyframes tw-corner-draw {
+  from { opacity: 0; transform: scale(0.2); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes tw-btn-sheen {
+  0%, 55%  { transform: translateX(-140%) skewX(-20deg); }
+  100%     { transform: translateX(260%) skewX(-20deg); }
+}
+
+@keyframes tw-arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(7px); }
+}
+
+@keyframes tw-wiggle {
+  0%, 100% { transform: rotate(0); }
+  25%      { transform: rotate(-12deg); }
+  75%      { transform: rotate(12deg); }
+}
+
+@keyframes tw-logo-in {
+  from { opacity: 0; transform: translateY(30px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes tw-logo-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes tw-logo-glow {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50%      { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes tw-logo-shine {
+  0%        { left: -60%; }
+  35%, 100% { left: 130%; }
+}
+
+@keyframes tw-contact-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+@keyframes tw-reveal {
+  from { opacity: 0; translate: 0 48px; scale: 0.97; }
+  to   { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes tw-progress {
+  to { transform: scaleX(1); }
+}
+
+@keyframes tw-bar-slide {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes tw-orbit {
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================================
+   BASE
+========================================================= */
+
+.tw-navbar *,
+.tw-navbar *::before,
+.tw-navbar *::after,
+.tw-hero *,
+.tw-hero *::before,
+.tw-hero *::after,
+.tw-about *,
+.tw-about *::before,
+.tw-about *::after,
+.tw-catalog *,
+.tw-catalog *::before,
+.tw-catalog *::after,
+.tw-services *,
+.tw-services *::before,
+.tw-services *::after,
+.tw-advantages *,
+.tw-advantages *::before,
+.tw-advantages *::after,
+.tw-contact *,
+.tw-contact *::before,
+.tw-contact *::after,
+.tw-footer *,
+.tw-footer *::before,
+.tw-footer *::after {
+  box-sizing: border-box;
+}
+
+.tw-about,
+.tw-catalog,
+.tw-services,
+.tw-advantages,
+.tw-contact,
+.tw-footer {
+  font-family: inherit;
+}
+
+.tw-section-container,
+.tw-navbar-container,
+.tw-footer-container,
+.tw-services > .container {
+  width: min(1240px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.tw-section-label,
+.tw-services-heading .section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--tusa-orange);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.tw-section-label::before,
+.tw-services-heading .section-kicker::before {
+  content: "";
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--tusa-orange), var(--tusa-orange-light));
+  transform-origin: left;
+  animation: tw-line 1s var(--tw-ease) both;
+}
+
+/* Títulos de sección compartidos */
+
+.tw-about-heading h2,
+.tw-catalog-heading h2,
+.tw-advantages-heading h2,
+.tw-contact-copy h2,
+.tw-services-heading h2 {
+  margin: 24px 0;
+  color: var(--tusa-dark);
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.13;
+  letter-spacing: -1.8px;
+  font-weight: 850;
+}
+
+.tw-about-heading h2 em,
+.tw-catalog-heading h2 em,
+.tw-advantages-heading h2 em,
+.tw-contact-copy h2 em,
+.tw-services-heading h2 em {
+  font-style: normal;
+  color: transparent;
+  background: linear-gradient(
+    100deg,
+    var(--tusa-orange),
+    var(--tusa-orange-light),
+    var(--tusa-orange-pale),
+    var(--tusa-orange)
+  );
+  background-size: 220% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: tw-gradient 6s ease infinite;
+}
+
+/* =========================================================
+   BOTONES COMPARTIDOS
+========================================================= */
+
+.tw-button-primary,
+.tw-button-secondary {
+  position: relative;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 24px;
+  overflow: hidden;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.35s var(--tw-ease),
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.tw-button-primary svg,
+.tw-button-secondary svg {
+  flex-shrink: 0;
+  transition: transform 0.35s var(--tw-ease);
+}
+
+.tw-button-primary {
+  color: var(--tusa-white);
+  border: 1px solid transparent;
+  background: linear-gradient(115deg, var(--tusa-orange), var(--tusa-orange-light));
+  box-shadow: 0 9px 24px rgba(240, 120, 50, 0.22);
+  animation: tw-pulse 3s ease-in-out infinite;
+}
+
+/* Brillo que cruza el botón cada pocos segundos */
+.tw-button-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: translateX(-140%) skewX(-20deg);
+  animation: tw-btn-sheen 4.5s ease-in-out 1.5s infinite;
+  pointer-events: none;
+}
+
+.tw-button-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(240, 120, 50, 0.38);
+}
+
+.tw-button-primary:hover svg {
+  transform: translateX(5px);
+}
+
+.tw-button-primary:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.tw-button-secondary {
+  color: var(--tusa-white);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+}
+
+.tw-button-secondary:hover {
+  transform: translateY(-4px);
+  border-color: var(--tusa-orange);
+  background: rgba(240, 120, 50, 0.16);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tw-button-secondary:hover svg {
+  transform: translate(3px, 3px);
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.tw-navbar {
+  position: fixed;
+  z-index: 1000;
+  top: var(--tw-nav-offset);
+  left: 0;
+  width: 100%;
+  padding: 16px 0;
+  background: rgba(34, 39, 44, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  animation: tw-slide-down 0.9s var(--tw-ease) backwards;
+  transition:
+    top 0.35s ease,
+    background 0.35s ease,
+    padding 0.35s ease,
+    box-shadow 0.35s ease,
+    backdrop-filter 0.35s ease;
+}
+
+.tw-navbar.tw-navbar-scrolled {
+  top: 0;
+  padding: 10px 0;
+  background: rgba(34, 39, 44, 0.96);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Barra de progreso de lectura (aparece al hacer scroll) */
+@supports (animation-timeline: scroll()) {
+  .tw-navbar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--tusa-orange),
+      var(--tusa-orange-light),
+      var(--tusa-orange-pale)
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: tw-progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+.tw-navbar-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+/* Logotipo */
+
+.tw-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  color: var(--tusa-white);
+  text-decoration: none;
+}
+
+.tw-navbar-logo {
+  width: auto;
+  height: 50px;
+  max-height: none;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(240, 120, 50, 0.28));
+  transition:
+    transform 0.5s var(--tw-bounce),
+    height 0.35s ease;
+}
+
+.tw-navbar-brand:hover .tw-navbar-logo {
+  transform: rotate(-6deg) scale(1.1);
+}
+
+.tw-navbar-scrolled .tw-navbar-logo {
+  height: 44px;
+}
+
+.tw-navbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tw-navbar-brand-name {
+  color: var(--tusa-white);
+  font-size: 17px;
+  font-weight: 850;
+  letter-spacing: 1px;
+}
+
+.tw-navbar-brand-name strong {
+  color: transparent;
+  background: linear-gradient(
+    100deg,
+    var(--tusa-orange-light),
+    var(--tusa-orange-pale),
+    var(--tusa-orange-light)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: tw-gradient 5s ease infinite;
+}
+
+.tw-navbar-brand-caption {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Menú */
+
+.tw-navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.tw-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.tw-navbar-link {
+  position: relative;
+  padding: 6px 0;
+  color: var(--tusa-white);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.3s var(--tw-ease);
+}
+
+.tw-navbar-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--tusa-orange), var(--tusa-orange-light));
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--tw-ease);
+}
+
+.tw-navbar-link:hover {
+  color: var(--tusa-orange-light);
+  transform: translateY(-2px);
+}
+
+.tw-navbar-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Acciones */
+
+.tw-navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tw-navbar-quote {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 16px;
+  overflow: hidden;
+  color: var(--tusa-white);
+  background: linear-gradient(120deg, var(--tusa-orange), var(--tusa-orange-light));
+  border: 0;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  animation: tw-pulse 3s ease-in-out 1s infinite;
+  transition: transform 0.35s var(--tw-ease), box-shadow 0.35s ease;
+}
+
+.tw-navbar-quote::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: translateX(-140%) skewX(-20deg);
+  animation: tw-btn-sheen 5s ease-in-out 2s infinite;
+  pointer-events: none;
+}
+
+.tw-navbar-quote svg {
+  transition: transform 0.35s var(--tw-ease);
+}
+
+.tw-navbar-quote:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(240, 120, 50, 0.38);
+}
+
+.tw-navbar-quote:hover svg {
+  transform: translateX(4px);
+}
+
+.tw-navbar-admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.tw-navbar-admin:hover {
+  color: var(--tusa-orange-light);
+}
+
+.tw-navbar-admin:hover svg {
+  animation: tw-wiggle 0.6s ease;
+}
+
+.tw-navbar-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: var(--tusa-white);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s var(--tw-bounce);
+}
+
+.tw-navbar-toggle:hover {
+  background: rgba(240, 120, 50, 0.18);
+  border-color: var(--tusa-orange);
+}
+
+.tw-navbar-toggle:active {
+  transform: scale(0.92);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.tw-hero {
+  position: relative;
+  min-height: 780px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 150px 0 110px;
+  color: var(--tusa-white);
+  background:
+    radial-gradient(circle at 80% 25%, rgba(240, 120, 50, 0.14), transparent 34%),
+    linear-gradient(120deg, #22272c 0%, #30363d 55%, #454b52 100%);
+}
+
+/* Cuadrícula que se desplaza lentamente */
+.tw-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 55px 55px;
+  mask-image: linear-gradient(to right, black, transparent 85%);
+  animation: tw-grid-drift 18s linear infinite;
+}
+
+/* Chispas naranjas que suben */
+.tw-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(circle, rgba(255, 154, 91, 0.6) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle, rgba(255, 154, 91, 0.35) 0 1px, transparent 2px);
+  background-size: 190px 220px, 120px 150px;
+  background-position: 0 0, 40px 60px;
+  mask-image: linear-gradient(to top, black, transparent 80%);
+  animation: tw-embers 26s linear infinite;
+}
+
+.tw-hero-background {
+  position: absolute;
+  top: -300px;
+  right: -170px;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 120, 50, 0.2), transparent 70%);
+  pointer-events: none;
+  animation: tw-blob 16s ease-in-out infinite;
+}
+
+.tw-hero-container {
+  position: relative;
+  z-index: 2;
+  width: min(1240px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 0.92fr;
+  align-items: center;
+  gap: 70px;
+}
+
+.tw-hero-content {
+  min-width: 0;
+}
+
+/* Entrada escalonada del texto */
+.tw-hero-eyebrow,
+.tw-hero-title,
+.tw-hero-description,
+.tw-hero-actions,
+.tw-hero-proof {
+  animation: tw-fade-up 0.9s var(--tw-ease) both;
+}
+
+.tw-hero-eyebrow     { animation-delay: 0.15s; }
+.tw-hero-title       { animation-delay: 0.3s; }
+.tw-hero-description { animation-delay: 0.5s; }
+.tw-hero-actions     { animation-delay: 0.65s; }
+.tw-hero-proof       { animation-delay: 0.8s; }
+
+.tw-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 28px;
+  color: var(--tusa-orange-light);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.tw-eyebrow-line {
+  width: 35px;
+  height: 2px;
+  background: var(--tusa-orange);
+  transform-origin: left;
+  animation: tw-line 1.2s var(--tw-ease) 0.4s both;
+}
+
+.tw-hero-title {
+  margin: 0;
+  color: var(--tusa-white);
+  font-size: clamp(45px, 5.1vw, 73px);
+  line-height: 1.08;
+  font-weight: 850;
+  letter-spacing: -3px;
+}
+
+.tw-hero-title em {
+  font-style: normal;
+  color: transparent;
+  background: linear-gradient(
+    100deg,
+    var(--tusa-orange),
+    var(--tusa-orange-light),
+    var(--tusa-orange-pale),
+    var(--tusa-orange)
+  );
+  background-size: 220% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: tw-gradient 5s ease infinite;
+}
+
+.tw-hero-description {
+  max-width: 540px;
+  margin: 26px 0 32px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.tw-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.tw-hero-proof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 45px;
+}
+
+.tw-proof-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--tusa-orange-light);
+  border: 1px solid rgba(240, 120, 50, 0.4);
+  border-radius: 50%;
+  animation: tw-pulse 3s infinite;
+}
+
+.tw-hero-proof strong,
+.tw-hero-proof small {
+  display: block;
+}
+
+.tw-hero-proof strong {
+  font-size: 12px;
+}
+
+.tw-hero-proof small {
+  margin-top: 5px;
+  color: var(--tusa-muted);
+  font-size: 10px;
+}
+
+/* Visual del hero (logo animado) */
+
+.tw-hero-visual {
+  position: relative;
+  min-width: 0;
+  padding: 0 20px 35px 0;
+  animation: tw-fade-left 1.1s var(--tw-ease) 0.25s both;
+}
+
+.tw-hero-image-frame {
+  position: relative;
+  height: 475px;
+  overflow: hidden;
+  background: var(--tusa-steel);
+  border-radius: 6px;
+  box-shadow: 0 30px 75px rgba(0, 0, 0, 0.35);
+}
+
+.tw-hero-image-frame.tw-hero-logo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 30px 62px;
+  background: radial-gradient(circle at 50% 40%, #3a4148 0%, #22272c 70%);
+}
+
+/* Borde luminoso que gira alrededor del marco */
+.tw-hero-logo-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--tw-angle),
+    transparent 0 55%,
+    rgba(240, 120, 50, 0.9) 78%,
+    var(--tusa-orange-pale) 88%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: tw-angle 6s linear infinite;
+  pointer-events: none;
+}
+
+/* Resplandor naranja que "respira" detrás del logo */
+.tw-hero-logo-glow {
+  position: absolute;
+  z-index: 1;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 120, 50, 0.38), transparent 65%);
+  animation: tw-logo-glow 4s ease-in-out infinite;
+}
+
+/* Logo: entra con zoom y luego flota */
+.tw-hero-image-frame.tw-hero-logo-frame .tw-hero-logo-img {
+  position: relative;
+  z-index: 2;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
+  transition: filter 0.5s ease;
+  animation:
+    tw-logo-in 1s var(--tw-ease) 0.5s both,
+    tw-logo-float 6s ease-in-out 1.5s infinite;
+}
+
+.tw-hero-logo-frame:hover .tw-hero-logo-img {
+  filter: drop-shadow(0 18px 38px rgba(240, 120, 50, 0.35)) brightness(1.08);
+}
+
+/* Destello de luz que cruza el cuadro */
+.tw-hero-logo-frame::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  z-index: 3;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.13),
+    transparent
+  );
+  transform: skewX(-15deg);
+  animation: tw-logo-shine 7s ease-in-out 2s infinite;
+  pointer-events: none;
+}
+
+.tw-hero-image-index {
+  position: absolute;
+  right: 27px;
+  bottom: 25px;
+  z-index: 5;
+  color: var(--tusa-white);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.tw-hero-image-index span {
+  margin: 0 7px;
+  color: var(--tusa-orange);
+  animation: tw-blink 1.6s ease-in-out infinite;
+}
+
+.tw-hero-orange-corner {
+  position: absolute;
+  z-index: -1;
+  top: -18px;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  border-top: 4px solid var(--tusa-orange);
+  border-right: 4px solid var(--tusa-orange);
+  transform-origin: top right;
+  animation: tw-corner-draw 1s var(--tw-ease) 0.9s both;
+}
+
+.tw-hero-stamp {
+  position: absolute;
+  left: -35px;
+  bottom: 75px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  color: var(--tusa-white);
+  background: linear-gradient(130deg, #454b52, #30363d);
+  border-left: 4px solid var(--tusa-orange);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  animation: tw-float 5s ease-in-out infinite;
+}
+
+.tw-hero-stamp svg {
+  color: var(--tusa-orange-light);
+  animation: tw-pulse 3s infinite;
+  border-radius: 50%;
+}
+
+.tw-hero-stamp span,
+.tw-hero-stamp strong {
+  display: block;
+}
+
+.tw-hero-stamp span {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 9px;
+  line-height: 1.7;
+  letter-spacing: 1px;
+}
+
+.tw-hero-stamp strong {
+  color: var(--tusa-white);
+  font-size: 11px;
+}
+
+.tw-hero-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.tw-hero-caption i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--tusa-orange);
+  animation: tw-pulse 2.4s infinite;
+}
+
+.tw-hero-caption i:nth-of-type(2) {
+  animation-delay: 0.6s;
+}
+
+.tw-hero-scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transform: translateX(-50%);
+  transition: color 0.3s ease;
+}
+
+.tw-hero-scroll:hover {
+  color: var(--tusa-orange-light);
+}
+
+.tw-hero-scroll span {
+  color: var(--tusa-orange);
+  font-size: 18px;
+  animation: tw-arrow-bounce 1.6s ease-in-out infinite;
+}
+
+/* =========================================================
+   NOSOTROS
+========================================================= */
+
+.tw-about {
+  position: relative;
+  padding: 115px 0;
+  overflow: hidden;
+  background: var(--tusa-white);
+}
+
+/* Resplandores suaves que flotan de fondo */
+.tw-about::before,
+.tw-about::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(240, 120, 50, 0.09), transparent 68%);
+}
+
+.tw-about::before {
+  top: -160px;
+  right: -140px;
+  width: 520px;
+  height: 520px;
+  animation: tw-blob 18s ease-in-out infinite;
+}
+
+.tw-about::after {
+  bottom: -180px;
+  left: -160px;
+  width: 460px;
+  height: 460px;
+  animation: tw-blob 22s ease-in-out infinite reverse;
+}
+
+.tw-about-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  column-gap: 110px;
+  row-gap: 65px;
+}
+
+.tw-heading-decoration {
+  width: 80px;
+  height: 5px;
+  background: linear-gradient(90deg, var(--tusa-orange), var(--tusa-orange-light));
+  border-radius: 3px;
+  transform-origin: left;
+  animation: tw-line 1s var(--tw-ease) both;
+}
+
+.tw-about-content {
+  padding-top: 15px;
+}
+
+.tw-about-overline {
+  color: var(--tusa-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.tw-about-content h3 {
+  margin: 22px 0 15px;
+  color: var(--tusa-dark);
+  font-size: 23px;
+  line-height: 1.4;
+}
+
+.tw-about-content p {
+  color: var(--tusa-muted);
+  font-size: 13.5px;
+  line-height: 2;
+}
+
+.tw-text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 0 0 9px;
+  color: var(--tusa-dark);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--tusa-orange);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: gap 0.35s var(--tw-ease), color 0.3s ease;
+}
+
+.tw-text-button svg {
+  color: var(--tusa-orange);
+  transition: transform 0.35s var(--tw-ease);
+}
+
+.tw-text-button:hover {
+  gap: 19px;
+  color: var(--tusa-orange);
+}
+
+.tw-text-button:hover svg {
+  transform: translateX(4px);
+}
+
+.tw-about-signature {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-top: 45px;
+}
+
+.tw-about-signature > strong {
+  color: var(--tusa-dark);
+  font-size: 48px;
+  letter-spacing: -4px;
+}
+
+.tw-about-signature > strong span {
+  color: var(--tusa-orange);
+  animation: tw-blink 1.4s ease-in-out infinite;
+}
+
+.tw-about-signature div {
+  padding-left: 17px;
+  border-left: 1px solid var(--tusa-border);
+  color: var(--tusa-muted);
+  font-size: 9px;
+  line-height: 1.8;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.tw-about-features {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--tusa-border);
+  border-bottom: 1px solid var(--tusa-border);
+}
+
+.tw-about-features > div {
+  position: relative;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  overflow: hidden;
+  color: var(--tusa-steel);
+  font-size: 11.5px;
+  font-weight: 750;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.tw-about-features > div + div {
+  border-left: 1px solid var(--tusa-border);
+}
+
+/* Barra naranja que crece desde abajo */
+.tw-about-features > div::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--tusa-orange), var(--tusa-orange-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--tw-ease);
+}
+
+.tw-about-features > div:hover {
+  color: var(--tusa-orange);
+  background: #fff7f2;
+}
+
+.tw-about-features > div:hover::after {
+  transform: scaleX(1);
+}
+
+.tw-about-features svg {
+  width: 26px;
+  color: var(--tusa-orange);
+  transition: transform 0.5s var(--tw-bounce);
+}
+
+.tw-about-features > div:hover svg {
+  transform: translateY(-5px) scale(1.2) rotate(-6deg);
+}
+
+/* =========================================================
+   CATÁLOGO
+========================================================= */
+
+.tw-catalog {
+  position: relative;
+  padding: 115px 0;
+  background: linear-gradient(145deg, #f0f1f2, #ffffff 65%);
+}
+
+/* Si el catálogo está dentro de otra sección, no duplica el espacio */
+.tw-catalog .tw-catalog {
+  padding: 0;
+  background: none;
+}
+
+.tw-catalog-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 55px;
+}
+
+.tw-catalog-description {
+  width: min(390px, 100%);
+}
+
+.tw-catalog-description p {
+  color: var(--tusa-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.tw-search {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+  border: 1px solid var(--tusa-border);
+  border-radius: 6px;
+  background: var(--tusa-white);
+  color: var(--tusa-muted);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s var(--tw-ease);
+}
+
+.tw-search:focus-within {
+  border-color: var(--tusa-orange);
+  box-shadow: 0 0 0 4px rgba(240, 120, 50, 0.1);
+  transform: translateY(-2px);
+}
+
+.tw-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: var(--tusa-dark);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+}
+
+.tw-search button {
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--tusa-muted);
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tw-search button:hover {
+  color: var(--tusa-orange);
+  transform: rotate(90deg);
+}
+
+.tw-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.tw-product-card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--tusa-white);
+  border: 1px solid rgba(34, 39, 44, 0.07);
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(25, 30, 35, 0.05);
+  transition:
+    transform 0.5s var(--tw-ease),
+    box-shadow 0.5s ease,
+    border-color 0.5s ease;
+}
+
+/* Línea naranja superior que se dibuja */
+.tw-product-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--tusa-orange), var(--tusa-orange-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--tw-ease);
+}
+
+.tw-product-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(240, 120, 50, 0.35);
+  box-shadow: var(--tusa-shadow-strong);
+}
+
+.tw-product-card:hover::before {
+  transform: scaleX(1);
+}
+
+.tw-product-image {
+  position: relative;
+  height: 235px;
+  overflow: hidden;
+  background: var(--tusa-dark-soft);
+}
+
+.tw-product-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.9s var(--tw-ease), filter 0.5s ease;
+}
+
+.tw-product-card:hover .tw-product-image img {
+  transform: scale(1.12) rotate(0.6deg);
+  filter: saturate(1.15);
+}
+
+/* Destello que cruza la imagen al pasar el mouse */
+.tw-product-image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  z-index: 2;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.9s var(--tw-ease);
+  pointer-events: none;
+}
+
+.tw-product-card:hover .tw-product-image::after {
+  left: 130%;
+}
+
+.tw-product-number {
+  position: absolute;
+  top: 17px;
+  left: 17px;
+  z-index: 2;
+  color: var(--tusa-white);
+  font-size: 12px;
+  font-weight: 850;
+  transition: transform 0.4s var(--tw-bounce);
+}
+
+.tw-product-card:hover .tw-product-number {
+  transform: scale(1.3);
+}
+
+.tw-product-featured {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 3;
+  padding: 7px 11px;
+  color: var(--tusa-white);
+  background: var(--tusa-orange);
+  border-radius: 3px;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 1px;
+  animation: tw-pulse 2.6s infinite;
+}
+
+.tw-product-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(34, 39, 44, 0.05),
+    rgba(34, 39, 44, 0.6)
+  );
+}
+
+.tw-product-brand {
+  position: absolute;
+  bottom: 17px;
+  left: 19px;
+  z-index: 2;
+  color: var(--tusa-white);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 2px;
+  transition: letter-spacing 0.5s var(--tw-ease);
+}
+
+.tw-product-card:hover .tw-product-brand {
+  letter-spacing: 3.5px;
+}
+
+.tw-product-info {
+  padding: 24px;
+}
+
+.tw-product-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--tusa-orange);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.8px;
+}
+
+.tw-product-meta span:last-child {
+  color: var(--tusa-muted);
+}
+
+.tw-product-info h3 {
+  margin: 18px 0 10px;
+  color: var(--tusa-dark);
+  font-size: 19px;
+  line-height: 1.35;
+  transition: color 0.3s ease;
+}
+
+.tw-product-card:hover .tw-product-info h3 {
+  color: var(--tusa-orange);
+}
+
+.tw-product-info > p {
+  min-height: 48px;
+  color: var(--tusa-muted);
+  font-size: 11.5px;
+  line-height: 1.8;
+}
+
+.tw-product-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 16px 0;
+  border-top: 1px solid var(--tusa-border);
+  border-bottom: 1px solid var(--tusa-border);
+}
+
+.tw-product-specs span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--tusa-steel);
+  font-size: 10.5px;
+}
+
+.tw-product-specs svg {
+  color: var(--tusa-orange);
+  flex-shrink: 0;
+  transition: transform 0.4s var(--tw-bounce);
+}
+
+.tw-product-card:hover .tw-product-specs svg {
+  transform: scale(1.25) rotate(-8deg);
+}
+
+.tw-product-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 19px;
+  padding: 13px 0;
+  color: var(--tusa-dark);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--tusa-border);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.tw-product-button svg {
+  color: var(--tusa-orange);
+  transition: transform 0.4s var(--tw-ease);
+}
+
+.tw-product-button:hover {
+  color: var(--tusa-orange);
+  border-color: var(--tusa-orange);
+}
+
+.tw-product-button:hover svg {
+  transform: translateX(8px);
+}
+
+/* Estados: cargando, error, vacío */
+
+.tw-catalog-notice {
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  padding: 25px;
+  color: var(--tusa-steel);
+  background: var(--tusa-white);
+  border: 1px solid var(--tusa-border);
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  animation: tw-fade-up 0.6s var(--tw-ease) both;
+}
+
+.tw-catalog-notice > svg {
+  color: var(--tusa-orange);
+  flex-shrink: 0;
+}
+
+.tw-catalog-error {
+  flex-wrap: wrap;
+}
+
+.tw-catalog-error button {
+  padding: 10px 16px;
+  color: var(--tusa-white);
+  background: var(--tusa-orange);
+  border: 0;
+  border-radius: 5px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.3s var(--tw-ease), background 0.3s ease;
+}
+
+.tw-catalog-error button:hover {
+  transform: translateY(-2px);
+  background: var(--tusa-orange-light);
+}
+
+.tw-spin {
+  animation: tw-spin 1s linear infinite;
+}
+
+.tw-catalog-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 35px;
+  padding-top: 20px;
+  border-top: 1px solid var(--tusa-border);
+  color: var(--tusa-muted);
+  font-size: 10px;
+}
+
+.tw-catalog-bottom strong {
+  color: var(--tusa-orange);
+}
+
+/* =========================================================
+   SERVICIOS
+========================================================= */
+
+.tw-services {
+  position: relative;
+  padding: 115px 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 15%, rgba(240, 120, 50, 0.07), transparent 32%),
+    #ffffff;
+}
+
+.tw-services > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.tw-services-heading {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: end;
+  gap: 65px;
+  margin-bottom: 55px;
+}
+
+.tw-services-heading > div:first-child {
+  min-width: 0;
+}
+
+.tw-services-heading h2 {
+  margin: 24px 0 0;
+  font-size: clamp(36px, 4.2vw, 54px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+}
+
+.tw-services-intro {
+  max-width: 470px;
+  justify-self: end;
+}
+
+.tw-services-intro p {
+  margin: 0 0 24px;
+  color: #737d87;
+  font-size: 13.5px;
+  line-height: 1.95;
+}
+
+.tw-services-link {
+  position: relative;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 22px;
+  overflow: hidden;
+  color: var(--tusa-white);
+  background: var(--tusa-dark);
+  border: 1px solid var(--tusa-dark);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.35s var(--tw-ease),
+    box-shadow 0.35s ease;
+}
+
+.tw-services-link svg {
+  transition: transform 0.35s var(--tw-ease);
+}
+
+.tw-services-link:hover {
+  background: var(--tusa-orange);
+  border-color: var(--tusa-orange);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(240, 120, 50, 0.28);
+}
+
+.tw-services-link:hover svg {
+  transform: translateX(5px);
+}
+
+.tw-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.tw-service-card {
+  position: relative;
+  min-width: 0;
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  padding: 27px;
+  overflow: hidden;
+  background: #f8f9fa;
+  border: 1px solid rgba(34, 39, 44, 0.09);
+  border-radius: 8px;
+  transition:
+    transform 0.5s var(--tw-ease),
+    border-color 0.4s ease,
+    box-shadow 0.5s ease,
+    background 0.4s ease;
+}
+
+.tw-service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--tusa-orange), var(--tusa-orange-light));
+  transition: width 0.6s var(--tw-ease);
+}
+
+/* Resplandor que aparece en la esquina */
+.tw-service-card::after {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 120, 50, 0.16), transparent 70%);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.5s ease, transform 0.6s var(--tw-ease);
+  pointer-events: none;
+}
+
+.tw-service-card:hover {
+  transform: translateY(-9px);
+  background: #ffffff;
+  border-color: rgba(240, 120, 50, 0.35);
+  box-shadow: var(--tusa-shadow-strong);
+}
+
+.tw-service-card:hover::before {
+  width: 100%;
+}
+
+.tw-service-card:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tw-service-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 28px;
+}
+
+.tw-service-number {
+  color: #a1a8af;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 2px;
+  transition: color 0.3s ease, letter-spacing 0.4s var(--tw-ease);
+}
+
+.tw-service-card:hover .tw-service-number {
+  color: var(--tusa-orange);
+  letter-spacing: 4px;
+}
+
+.tw-service-icon {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--tusa-orange);
+  background: rgba(240, 120, 50, 0.1);
+  border: 1px solid rgba(240, 120, 50, 0.18);
+  border-radius: 8px;
+  transition:
+    color 0.35s ease,
+    background 0.35s ease,
+    transform 0.5s var(--tw-bounce),
+    box-shadow 0.35s ease;
+}
+
+.tw-service-card:hover .tw-service-icon {
+  color: #ffffff;
+  background: var(--tusa-orange);
+  box-shadow: 0 10px 22px rgba(240, 120, 50, 0.32);
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.tw-service-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+.tw-service-content h3 {
+  margin: 0 0 13px;
+  color: var(--tusa-dark);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.tw-service-content p {
+  margin: 0;
+  color: var(--tusa-muted);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+.tw-service-action {
+  position: relative;
+  z-index: 2;
+  width: fit-content;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 22px;
+  padding: 0 0 7px;
+  color: var(--tusa-dark);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--tusa-orange);
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+  transition: gap 0.35s var(--tw-ease), color 0.3s ease;
+}
+
+.tw-service-action svg {
+  color: var(--tusa-orange);
+  transition: transform 0.35s var(--tw-ease);
+}
+
+.tw-service-action:hover {
+  gap: 15px;
+  color: var(--tusa-orange);
+}
+
+.tw-service-action:hover svg {
+  transform: translateX(4px);
+}
+
+.tw-service-decoration {
+  position: absolute;
+  right: 25px;
+  bottom: 25px;
+  color: rgba(240, 120, 50, 0.14);
+  pointer-events: none;
+  transition: color 0.4s ease, transform 0.8s var(--tw-ease);
+}
+
+.tw-service-card:hover .tw-service-decoration {
+  color: rgba(240, 120, 50, 0.5);
+  transform: rotate(360deg) scale(1.3);
+}
+
+/* Estados: cargando, error, vacío */
+
+.tw-services-state {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 30px;
+  color: var(--tusa-muted);
+  background: #f8f9fa;
+  border: 1px solid var(--tusa-border);
+  border-radius: 8px;
+  text-align: center;
+  animation: tw-fade-up 0.6s var(--tw-ease) both;
+}
+
+.tw-services-state p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.tw-services-loader {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(240, 120, 50, 0.15);
+  border-top-color: var(--tusa-orange);
+  border-radius: 50%;
+  animation: tw-spin 0.8s linear infinite;
+}
+
+.tw-services-error {
+  background: #fff8f6;
+  border-color: rgba(192, 57, 43, 0.18);
+}
+
+.tw-services-error p {
+  color: #a93226;
+}
+
+.tw-services-retry {
+  min-height: 43px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 18px;
+  color: #ffffff;
+  background: var(--tusa-orange);
+  border: 1px solid var(--tusa-orange);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.3s var(--tw-ease),
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.tw-services-retry:hover {
+  background: var(--tusa-dark);
+  border-color: var(--tusa-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(34, 39, 44, 0.18);
+}
+
+/* Bloque inferior de atención personalizada */
+
+.tw-services-bottom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  margin-top: 55px;
+  padding: 38px 42px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(240, 120, 50, 0.18), transparent 40%),
+    linear-gradient(120deg, #22272c, #454b52);
+  border-left: 4px solid var(--tusa-orange);
+  border-radius: 8px;
+}
+
+/* Brillo que recorre el bloque */
+.tw-services-bottom::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.07),
+    transparent
+  );
+  transform: translateX(-150%) skewX(-20deg);
+  animation: tw-btn-sheen 8s ease-in-out 1s infinite;
+  pointer-events: none;
+}
+
+.tw-services-bottom > div {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.tw-services-bottom-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--tusa-orange-light);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 2px;
+}
+
+.tw-services-bottom h3 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.tw-services-bottom p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+.tw-services-bottom .button-orange {
+  position: relative;
+  z-index: 1;
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 0 24px;
+  color: #ffffff;
+  background: var(--tusa-orange);
+  border: 1px solid var(--tusa-orange);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+  animation: tw-pulse 3s ease-in-out infinite;
+  transition:
+    transform 0.35s var(--tw-ease),
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.tw-services-bottom .button-orange svg {
+  transition: transform 0.35s var(--tw-ease);
+}
+
+.tw-services-bottom .button-orange:hover {
+  transform: translateY(-4px);
+  background: var(--tusa-orange-light);
+  border-color: var(--tusa-orange-light);
+  box-shadow: 0 12px 26px rgba(240, 120, 50, 0.32);
+}
+
+.tw-services-bottom .button-orange:hover svg {
+  transform: translateX(5px);
+}
+
+/* =========================================================
+   VENTAJAS
+========================================================= */
+
+.tw-advantages {
+  position: relative;
+  overflow: hidden;
+  padding: 115px 0;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(240, 120, 50, 0.1), transparent 36%),
+    linear-gradient(135deg, #22272c, #30363d 70%, #454b52);
+}
+
+/* Resplandor naranja que se desplaza */
+.tw-advantages::before {
+  content: "";
+  position: absolute;
+  bottom: -220px;
+  left: -160px;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 120, 50, 0.14), transparent 68%);
+  pointer-events: none;
+  animation: tw-blob 20s ease-in-out infinite;
+}
+
+/* Cuadrícula sutil */
+.tw-advantages::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 55px 55px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+  animation: tw-grid-drift 24s linear infinite;
+}
+
+.tw-advantages .tw-section-container {
+  position: relative;
+  z-index: 1;
+}
+
+.tw-advantages .tw-section-label {
+  color: var(--tusa-orange-light);
+}
+
+.tw-advantages-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.tw-advantages-heading h2 {
+  color: var(--tusa-white);
+}
+
+.tw-advantages-heading p {
+  max-width: 390px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+.tw-advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.tw-advantage-card {
+  position: relative;
+  min-height: 300px;
+  padding: 35px 30px;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.09),
+    rgba(255, 255, 255, 0.025)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  transition:
+    transform 0.5s var(--tw-ease),
+    background 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.5s ease;
+}
+
+/* Foco de luz naranja que aparece al pasar el mouse */
+.tw-advantage-card::before {
+  content: "";
+  position: absolute;
+  top: -90px;
+  right: -90px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 120, 50, 0.28), transparent 68%);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.5s ease, transform 0.7s var(--tw-ease);
+  pointer-events: none;
+}
+
+.tw-advantage-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--tusa-orange),
+    var(--tusa-orange-light),
+    var(--tusa-orange)
+  );
+  background-size: 200% 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--tw-ease);
+}
+
+.tw-advantage-card:hover {
+  transform: perspective(900px) translateY(-10px) rotateX(2deg);
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(240, 120, 50, 0.5);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.3);
+}
+
+.tw-advantage-card:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tw-advantage-card:hover::after {
+  transform: scaleX(1);
+  animation: tw-bar-slide 2.5s linear infinite;
+}
+
+.tw-advantage-number {
+  position: absolute;
+  top: 22px;
+  right: 25px;
+  color: rgba(255, 255, 255, 0.16);
+  font-size: 38px;
+  font-weight: 850;
+  transition: color 0.4s ease, transform 0.5s var(--tw-bounce);
+}
+
+.tw-advantage-card:hover .tw-advantage-number {
+  color: rgba(240, 120, 50, 0.55);
+  transform: scale(1.18);
+}
+
+.tw-advantage-icon {
+  position: relative;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  color: var(--tusa-orange-light);
+  background: rgba(240, 120, 50, 0.13);
+  border: 1px solid rgba(240, 120, 50, 0.25);
+  border-radius: 8px;
+  animation: tw-pulse 3.5s infinite;
+  transition:
+    color 0.35s ease,
+    background 0.35s ease,
+    transform 0.5s var(--tw-bounce);
+}
+
+.tw-advantage-card:nth-child(2) .tw-advantage-icon { animation-delay: 0.6s; }
+.tw-advantage-card:nth-child(3) .tw-advantage-icon { animation-delay: 1.2s; }
+
+.tw-advantage-card:hover .tw-advantage-icon {
+  color: #ffffff;
+  background: var(--tusa-orange);
+  transform: rotate(-8deg) scale(1.12);
+}
+
+.tw-advantage-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 28px 0 13px;
+  color: var(--tusa-white);
+  font-size: 17.5px;
+}
+
+.tw-advantage-card p {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11.5px;
+  line-height: 1.9;
+}
+
+.tw-advantage-arrow {
+  position: absolute;
+  right: 25px;
+  bottom: 25px;
+  z-index: 1;
+  color: var(--tusa-orange-light);
+  transition: transform 0.4s var(--tw-ease);
+}
+
+.tw-advantage-card:hover .tw-advantage-arrow {
+  transform: translate(6px, -6px) scale(1.2);
+}
+
+/* =========================================================
+   CONTACTO
+========================================================= */
+
+.tw-contact {
+  position: relative;
+  padding: 110px 0;
+  overflow: hidden;
+  background: var(--tusa-gray);
+}
+
+.tw-contact::before {
+  content: "";
+  position: absolute;
+  top: -200px;
+  left: -150px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 120, 50, 0.1), transparent 68%);
+  pointer-events: none;
+  animation: tw-blob 20s ease-in-out infinite;
+}
+
+.tw-contact .tw-section-container {
+  position: relative;
+  z-index: 1;
+}
+
+.tw-contact-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 70px;
+  padding: 65px;
+  overflow: hidden;
+  background: var(--tusa-white);
+  border-radius: 10px;
+  box-shadow: var(--tusa-shadow);
+}
+
+/* Línea naranja animada en el borde superior del panel */
+.tw-contact-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--tusa-orange),
+    var(--tusa-orange-light),
+    var(--tusa-orange-pale),
+    var(--tusa-orange)
+  );
+  background-size: 200% 100%;
+  animation: tw-bar-slide 5s linear infinite;
+}
+
+.tw-contact-copy h2 {
+  margin-top: 27px;
+}
+
+.tw-contact-copy > p {
+  max-width: 440px;
+  margin: 20px 0 30px;
+  color: var(--tusa-muted);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+
+.tw-contact-details {
+  padding-left: 45px;
+  border-left: 1px solid var(--tusa-border);
+}
+
+.tw-contact-art {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--tusa-border);
+}
+
+/* Cuadro del logo */
+.tw-contact-art-square {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #3a4148 0%, #22272c 75%);
+  border: 1px solid rgba(240, 120, 50, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(34, 39, 44, 0.25);
+  transition: transform 0.5s var(--tw-bounce), box-shadow 0.4s ease;
+}
+
+.tw-contact-art:hover .tw-contact-art-square {
+  transform: rotate(-4deg) scale(1.06);
+  box-shadow: 0 18px 36px rgba(240, 120, 50, 0.28);
+}
+
+.tw-contact-art-square::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 120, 50, 0.4), transparent 65%);
+  animation: tw-logo-glow 4s ease-in-out infinite;
+}
+
+.tw-contact-art-square::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.16),
+    transparent
+  );
+  transform: skewX(-15deg);
+  animation: tw-logo-shine 6s ease-in-out 1.5s infinite;
+  pointer-events: none;
+}
+
+.tw-contact-art-square img {
+  position: relative;
+  z-index: 1;
+  width: 76%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35)) brightness(1.12) saturate(1.1);
+  animation: tw-contact-float 5s ease-in-out infinite;
+}
+
+.tw-contact-art > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  color: var(--tusa-dark);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.3px;
+}
+
+.tw-contact-art > span i {
+  width: 22px;
+  height: 2px;
+  background: var(--tusa-orange);
+  transition: width 0.5s var(--tw-ease);
+}
+
+.tw-contact-art:hover > span i {
+  width: 44px;
+}
+
+.tw-contact-points {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 29px 0;
+}
+
+.tw-contact-points > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: transform 0.35s var(--tw-ease);
+}
+
+.tw-contact-points > div:hover {
+  transform: translateX(8px);
+}
+
+.tw-contact-points > div > span {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--tusa-orange);
+  background: rgba(240, 120, 50, 0.1);
+  border-radius: 50%;
+  animation: tw-pulse 3s infinite;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.tw-contact-points > div:nth-child(2) > span { animation-delay: 0.5s; }
+.tw-contact-points > div:nth-child(3) > span { animation-delay: 1s; }
+
+.tw-contact-points > div:hover > span {
+  color: var(--tusa-white);
+  background: var(--tusa-orange);
+}
+
+.tw-contact-points p {
+  margin: 0;
+}
+
+.tw-contact-points strong,
+.tw-contact-points small {
+  display: block;
+}
+
+.tw-contact-points strong {
+  color: var(--tusa-dark);
+  font-size: 12.5px;
+}
+
+.tw-contact-points small {
+  margin-top: 6px;
+  color: var(--tusa-muted);
+  font-size: 10.5px;
+  line-height: 1.7;
+}
+
+.tw-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 0 8px;
+  color: var(--tusa-orange);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--tusa-orange);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+  transition: gap 0.35s var(--tw-ease), color 0.3s ease;
+}
+
+.tw-contact-link svg {
+  transition: transform 0.35s var(--tw-ease);
+}
+
+.tw-contact-link:hover {
+  gap: 17px;
+  color: var(--tusa-dark);
+}
+
+.tw-contact-link:hover svg {
+  transform: translate(3px, -3px);
+}
+
+/* Entrada escalonada: se activa cuando la sección aparece (lo hace Contacto.tsx) */
+
+.tw-contact:not(.tw-contact-visible) .tw-contact-copy > *,
+.tw-contact:not(.tw-contact-visible) .tw-contact-art,
+.tw-contact:not(.tw-contact-visible) .tw-contact-points > div,
+.tw-contact:not(.tw-contact-visible) .tw-contact-link {
+  opacity: 0;
+}
+
+.tw-contact-visible .tw-contact-copy > *,
+.tw-contact-visible .tw-contact-art,
+.tw-contact-visible .tw-contact-points > div,
+.tw-contact-visible .tw-contact-link {
+  animation: tw-fade-up 0.8s var(--tw-ease) backwards;
+}
+
+.tw-contact-visible .tw-contact-copy > *:nth-child(1) { animation-delay: 0.05s; }
+.tw-contact-visible .tw-contact-copy > *:nth-child(2) { animation-delay: 0.15s; }
+.tw-contact-visible .tw-contact-copy > *:nth-child(3) { animation-delay: 0.25s; }
+.tw-contact-visible .tw-contact-copy > *:nth-child(4) { animation-delay: 0.35s; }
+
+.tw-contact-visible .tw-contact-art { animation-delay: 0.3s; }
+.tw-contact-visible .tw-contact-points > div:nth-child(1) { animation-delay: 0.45s; }
+.tw-contact-visible .tw-contact-points > div:nth-child(2) { animation-delay: 0.6s; }
+.tw-contact-visible .tw-contact-points > div:nth-child(3) { animation-delay: 0.75s; }
+.tw-contact-visible .tw-contact-link { animation-delay: 0.9s; }
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.tw-footer {
+  position: relative;
+  padding: 70px 0 25px;
+  overflow: hidden;
+  color: var(--tusa-white);
+  background:
+    radial-gradient(circle at 90% 0%, rgba(240, 120, 50, 0.13), transparent 32%),
+    linear-gradient(135deg, #22272c, #30363d);
+}
+
+/* Línea naranja animada en la parte superior */
+.tw-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--tusa-orange),
+    var(--tusa-orange-light),
+    var(--tusa-orange-pale),
+    var(--tusa-orange),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: tw-bar-slide 6s linear infinite;
+}
+
+.tw-footer-main {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  align-items: start;
+  gap: 50px;
+  padding-bottom: 50px;
+}
+
+.tw-footer-brand {
+  max-width: 340px;
+}
+
+.tw-footer-logo {
+  display: inline-flex;
+  margin-bottom: 15px;
+}
+
+.tw-footer-logo img {
+  width: auto;
+  height: 120px;
+  max-height: none;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+  transition: transform 0.5s var(--tw-bounce), filter 0.4s ease;
+}
+
+.tw-footer-logo:hover img {
+  transform: scale(1.06) rotate(-2deg);
+  filter: drop-shadow(0 10px 24px rgba(240, 120, 50, 0.35));
+}
+
+.tw-footer-description {
+  margin: 0 0 6px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11.5px;
+  line-height: 1.9;
+}
+
+.tw-footer-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 12px;
+  color: var(--tusa-orange-light);
+  font-size: 11.5px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: gap 0.35s var(--tw-ease), color 0.3s ease;
+}
+
+.tw-footer-cta:hover {
+  gap: 16px;
+  color: var(--tusa-orange-pale);
+}
+
+.tw-footer-links h3,
+.tw-footer-contact h3 {
+  position: relative;
+  margin: 0 0 22px;
+  padding-bottom: 12px;
+  color: var(--tusa-white);
+  font-size: 13.5px;
+}
+
+.tw-footer-links h3::after,
+.tw-footer-contact h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 28px;
+  height: 2px;
+  background: var(--tusa-orange);
+  transition: width 0.5s var(--tw-ease);
+}
+
+.tw-footer-links:hover h3::after,
+.tw-footer-contact:hover h3::after {
+  width: 60px;
+}
+
+.tw-footer-links ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tw-footer-links li a,
+.tw-footer-contact a,
+.tw-footer-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.35s var(--tw-ease);
+}
+
+.tw-footer-links li a svg,
+.tw-footer-contact a svg,
+.tw-footer-bottom a svg {
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 0.3s ease, transform 0.35s var(--tw-ease);
+}
+
+.tw-footer-links li a:hover,
+.tw-footer-contact a:hover,
+.tw-footer-bottom a:hover {
+  color: var(--tusa-orange-light);
+  transform: translateX(5px);
+}
+
+.tw-footer-links li a:hover svg,
+.tw-footer-contact a:hover svg,
+.tw-footer-bottom a:hover svg {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Las flechas del contacto siempre visibles para invitar al clic */
+.tw-footer-contact a svg {
+  opacity: 0.7;
+  transform: none;
+}
+
+.tw-footer-contact p {
+  max-width: 300px;
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 11.5px;
+  line-height: 1.9;
+}
+
+.tw-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 23px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 9.5px;
+}
+
+.tw-footer-bottom p {
+  margin: 0;
+}
+
+/* =========================================================
+   FORMULARIO DE COTIZACIÓN: SELECCIÓN MÚLTIPLE
+========================================================= */
+
+.quote-selected-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.quote-selected-item {
+  padding: 18px;
+  background: #f8f9fa;
+  border: 1px solid var(--tusa-border);
+  border-left: 3px solid var(--tusa-orange);
+  border-radius: 6px;
+  animation: tw-fade-up 0.45s var(--tw-ease) both;
+  transition: transform 0.3s var(--tw-ease), box-shadow 0.3s ease;
+}
+
+.quote-selected-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 8px 22px rgba(25, 30, 35, 0.08);
+}
+
+.quote-selected-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 13px;
+}
+
+.quote-selected-code {
+  color: var(--tusa-dark);
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.5;
+}
+
+.quote-remove-item {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.08);
+  border: 1px solid rgba(192, 57, 43, 0.15);
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    transform 0.3s var(--tw-bounce);
+}
+
+.quote-remove-item:hover {
+  color: var(--tusa-white);
+  background: #c0392b;
+  transform: rotate(90deg) scale(1.08);
+}
+
+.quote-empty-selection {
+  width: 100%;
+  padding: 25px;
+  color: var(--tusa-muted);
+  background: #f8f9fa;
+  border: 1px dashed rgba(34, 39, 44, 0.2);
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* =========================================================
+   ENTRADA AL HACER SCROLL (solo CSS)
+   Funciona en navegadores modernos. En los que no lo
+   soportan, el contenido simplemente aparece sin animar.
+========================================================= */
+
+@supports (animation-timeline: view()) {
+  .tw-about-heading,
+  .tw-about-content,
+  .tw-about-features > div,
+  .tw-catalog-heading,
+  .tw-product-card,
+  .tw-services-heading > div,
+  .tw-service-card,
+  .tw-services-bottom,
+  .tw-advantages-heading > *,
+  .tw-advantage-card,
+  .tw-footer-main > div,
+  .tw-footer-bottom {
+    animation: tw-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 42%;
+  }
+
+  /* Pequeño desfase entre tarjetas de la misma fila */
+  .tw-product-card:nth-child(3n + 2),
+  .tw-service-card:nth-child(3n + 2),
+  .tw-advantage-card:nth-child(2),
+  .tw-about-features > div:nth-child(2),
+  .tw-footer-main > div:nth-child(2) {
+    animation-range: entry 6% entry 50%;
+  }
+
+  .tw-product-card:nth-child(3n + 3),
+  .tw-service-card:nth-child(3n + 3),
+  .tw-advantage-card:nth-child(3),
+  .tw-about-features > div:nth-child(3),
+  .tw-footer-main > div:nth-child(3) {
+    animation-range: entry 12% entry 58%;
+  }
+
+  .tw-about-features > div:nth-child(4) {
+    animation-range: entry 18% entry 64%;
+  }
+
+  .tw-heading-decoration {
+    animation: tw-line linear both;
+    animation-timeline: view();
+    animation-range: entry 20% entry 80%;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE: PANTALLAS MEDIANAS
+========================================================= */
+
+@media (max-width: 1100px) {
+  .tw-navbar-menu {
+    gap: 15px;
+  }
+
+  .tw-navbar-links {
+    gap: 14px;
+  }
+
+  .tw-navbar-link {
+    font-size: 10px;
+  }
+
+  .tw-navbar-actions {
+    gap: 10px;
+  }
+
+  .tw-navbar-quote {
+    padding: 11px 12px;
+    font-size: 9px;
+  }
+
+  .tw-navbar-admin {
+    font-size: 9px;
+  }
+
+  .tw-hero-container {
+    gap: 40px;
+  }
+
+  .tw-hero-image-frame {
+    height: 430px;
+  }
+
+  .tw-about-grid {
+    column-gap: 60px;
+  }
+
+  .tw-product-grid,
+  .tw-services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tw-services-heading {
+    gap: 35px;
+  }
+
+  .tw-services-bottom {
+    padding: 30px;
+  }
+
+  .tw-contact-panel {
+    gap: 40px;
+    padding: 45px;
+  }
+
+  .tw-contact-details {
+    padding-left: 30px;
+  }
+
+  .tw-footer-main {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tw-footer-brand {
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE: TABLETS Y MÓVILES (menú hamburguesa)
+========================================================= */
+
+@media (max-width: 900px) {
+  .tw-section-container,
+  .tw-navbar-container,
+  .tw-footer-container,
+  .tw-services > .container {
+    width: min(100% - 36px, 620px);
+  }
+
+  /* Navbar */
+
+  .tw-navbar {
+    padding: 12px 0;
+    background: rgba(34, 39, 44, 0.97);
+    backdrop-filter: blur(15px);
+  }
+
+  .tw-navbar-logo {
+    height: 42px;
+  }
+
+  .tw-navbar-brand {
+    gap: 9px;
+  }
+
+  .tw-navbar-brand-caption {
+    font-size: 7px;
+  }
+
+  .tw-navbar-toggle {
+    display: grid;
+  }
+
+  .tw-navbar-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: -18px;
+    right: -18px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    max-height: calc(100vh - 100px);
+    padding: 18px;
+    overflow-y: auto;
+    background: #22272c;
+    border-top: 2px solid var(--tusa-orange);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.4s var(--tw-ease),
+      visibility 0.35s ease;
+  }
+
+  .tw-navbar-menu.tw-navbar-menu-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .tw-navbar-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .tw-navbar-link {
+    padding: 15px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 12px;
+  }
+
+  .tw-navbar-link::after {
+    display: none;
+  }
+
+  /* Los enlaces del menú entran uno por uno */
+  .tw-navbar-menu-open .tw-navbar-link {
+    animation: tw-fade-right 0.45s var(--tw-ease) backwards;
+  }
+
+  .tw-navbar-menu-open .tw-navbar-link:nth-child(1) { animation-delay: 0.05s; }
+  .tw-navbar-menu-open .tw-navbar-link:nth-child(2) { animation-delay: 0.1s; }
+  .tw-navbar-menu-open .tw-navbar-link:nth-child(3) { animation-delay: 0.15s; }
+  .tw-navbar-menu-open .tw-navbar-link:nth-child(4) { animation-delay: 0.2s; }
+  .tw-navbar-menu-open .tw-navbar-link:nth-child(5) { animation-delay: 0.25s; }
+  .tw-navbar-menu-open .tw-navbar-link:nth-child(6) { animation-delay: 0.3s; }
+
+  .tw-navbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .tw-navbar-quote {
+    width: 100%;
+    min-height: 46px;
+    font-size: 11px;
+  }
+
+  .tw-navbar-admin {
+    justify-content: center;
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  /* Hero */
+
+  .tw-hero {
+    min-height: auto;
+    padding: 140px 0 95px;
+  }
+
+  .tw-hero-container {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+
+  .tw-hero-title {
+    font-size: clamp(43px, 11vw, 64px);
+    letter-spacing: -2px;
+  }
+
+  .tw-hero-actions {
+    flex-direction: column;
+  }
+
+  .tw-hero-actions > * {
+    width: 100%;
+  }
+
+  .tw-hero-proof {
+    margin-top: 32px;
+  }
+
+  .tw-hero-visual {
+    margin-left: 22px;
+  }
+
+  .tw-hero-image-frame {
+    height: 360px;
+  }
+
+  .tw-hero-stamp {
+    left: -22px;
+    bottom: 65px;
+    padding: 15px;
+  }
+
+  .tw-hero-caption {
+    font-size: 7px;
+    gap: 6px;
+  }
+
+  .tw-hero-scroll {
+    bottom: 20px;
+    white-space: nowrap;
+  }
+
+  /* Nosotros */
+
+  .tw-about,
+  .tw-catalog,
+  .tw-services,
+  .tw-advantages {
+    padding: 80px 0;
+  }
+
+  .tw-about-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .tw-about-heading h2,
+  .tw-catalog-heading h2,
+  .tw-advantages-heading h2,
+  .tw-contact-copy h2,
+  .tw-services-heading h2 {
+    font-size: clamp(32px, 8vw, 44px);
+    letter-spacing: -1.5px;
+  }
+
+  .tw-about-features {
+    grid-column: auto;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tw-about-features > div {
+    justify-content: flex-start;
+    padding: 18px 12px;
+    font-size: 10.5px;
+  }
+
+  .tw-about-features > div:nth-child(3) {
+    border-left: 0;
+  }
+
+  .tw-about-features > div:nth-child(n + 3) {
+    border-top: 1px solid var(--tusa-border);
+  }
+
+  /* Catálogo y servicios */
+
+  .tw-catalog-heading,
+  .tw-advantages-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .tw-catalog-description {
+    width: 100%;
+  }
+
+  .tw-product-grid,
+  .tw-services-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .tw-product-image {
+    height: 240px;
+  }
+
+  .tw-catalog-bottom {
+    flex-direction: column;
+    line-height: 1.8;
+  }
+
+  .tw-services-heading {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-bottom: 35px;
+  }
+
+  .tw-services-intro {
+    justify-self: stretch;
+    max-width: 100%;
+  }
+
+  .tw-services-link {
+    width: 100%;
+  }
+
+  .tw-service-card {
+    min-height: 260px;
+    padding: 24px;
+  }
+
+  .tw-services-bottom {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    margin-top: 35px;
+    padding: 27px 22px;
+  }
+
+  .tw-services-bottom h3 {
+    font-size: 18px;
+  }
+
+  .tw-services-bottom .button-orange {
+    width: 100%;
+  }
+
+  /* Ventajas */
+
+  .tw-advantages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tw-advantage-card {
+    min-height: 260px;
+  }
+
+  /* Contacto */
+
+  .tw-contact {
+    padding: 75px 0;
+  }
+
+  .tw-contact-panel {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 34px 22px;
+  }
+
+  .tw-contact-details {
+    padding: 30px 0 0;
+    border-top: 1px solid var(--tusa-border);
+    border-left: 0;
+  }
+
+  .tw-contact-art-square {
+    width: 88px;
+    height: 88px;
+  }
+
+  /* Footer */
+
+  .tw-footer {
+    padding-top: 55px;
+  }
+
+  .tw-footer-main {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-bottom: 30px;
+  }
+
+  .tw-footer-logo img {
+    height: 105px;
+  }
+
+  .tw-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.8;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE: MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width: 380px) {
+  .tw-navbar-brand-caption {
+    display: none;
+  }
+
+  .tw-hero-title {
+    font-size: 40px;
+  }
+
+  .tw-hero-image-frame {
+    height: 300px;
+  }
+
+  .tw-hero-caption {
+    font-size: 6px;
+  }
+
+  .tw-about-features {
+    grid-template-columns: 1fr;
+  }
+
+  .tw-about-features > div {
+    border-left: 0 !important;
+    border-top: 1px solid var(--tusa-border);
+  }
+
+  .tw-about-features > div:first-child {
+    border-top: 0;
+  }
+
+  .tw-footer-links ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   ACCESIBILIDAD: respeta a quien desactiva las animaciones
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  :is(
+    .tw-navbar,
+    .tw-hero,
+    .tw-about,
+    .tw-catalog,
+    .tw-services,
+    .tw-advantages,
+    .tw-contact,
+    .tw-footer
+  ),
+  :is(
+    .tw-navbar,
+    .tw-hero,
+    .tw-about,
+    .tw-catalog,
+    .tw-services,
+    .tw-advantages,
+    .tw-contact,
+    .tw-footer
+  ) *,
+  :is(
+    .tw-navbar,
+    .tw-hero,
+    .tw-about,
+    .tw-catalog,
+    .tw-services,
+    .tw-advantages,
+    .tw-contact,
+    .tw-footer
+  ) *::before,
+  :is(
+    .tw-navbar,
+    .tw-hero,
+    .tw-about,
+    .tw-catalog,
+    .tw-services,
+    .tw-advantages,
+    .tw-contact,
+    .tw-footer
+  ) *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

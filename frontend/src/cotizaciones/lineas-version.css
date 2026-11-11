@@ -1,0 +1,52 @@
+/* Estilos exclusivos para los formularios de líneas de cotización. */
+.tusa-line-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  width: 100%;
+  align-items: end;
+}
+
+.tusa-line-editor-grid label {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 5px;
+  color: var(--q-text);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.tusa-line-editor-grid label span {
+  color: var(--q-muted, #687386);
+}
+
+.tusa-line-editor-wide {
+  grid-column: 1 / -1;
+}
+
+.tusa-line-editor-grid select,
+.tusa-line-editor-grid input,
+.tusa-line-editor-grid textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--q-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--q-text);
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 9px 10px;
+  outline-color: var(--q-orange);
+}
+
+.tusa-line-editor-grid textarea {
+  resize: vertical;
+}
+
+@media (max-width: 560px) {
+  .tusa-line-editor-grid {
+    grid-template-columns: 1fr;
+  }
+}

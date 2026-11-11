@@ -1,0 +1,354 @@
+/* =========================================================
+   TUSA WOOD — ESTILOS GLOBALES
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #252b31;
+  background: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --tusa-dark: #22272c;
+  --tusa-dark-soft: #30363d;
+  --tusa-orange: #f07832;
+  --tusa-orange-light: #ff9a5b;
+  --tusa-white: #ffffff;
+  --tusa-gray: #f0f1f2;
+  --tusa-steel: #454b52;
+  --tusa-muted: #8b9299;
+  --tusa-border: rgba(34, 39, 44, 0.12);
+
+  --tusa-radius: 18px;
+  --tusa-shadow: 0 20px 55px rgba(25, 30, 35, 0.09);
+  --tusa-transition: 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  min-width: 320px;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #ffffff;
+  color: #252b31;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: 'DM Sans', sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font-size: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--tusa-dark);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+p {
+  color: #626b74;
+}
+
+::selection {
+  color: #ffffff;
+  background: var(--tusa-orange);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(240, 120, 50, 0.45);
+  outline-offset: 3px;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+main {
+  width: 100%;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
+/* =========================================================
+   CONTENEDORES
+========================================================= */
+
+.container {
+  width: min(100% - 64px, 1200px);
+  margin-inline: auto;
+}
+
+.site-shell {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
+  isolation: auto;
+  background: #ffffff;
+  color: var(--tusa-dark);
+}
+
+/* =========================================================
+   BOTONES GENERALES
+========================================================= */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 13px 23px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  transition:
+    background var(--tusa-transition),
+    color var(--tusa-transition),
+    border-color var(--tusa-transition),
+    transform var(--tusa-transition),
+    box-shadow var(--tusa-transition);
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.button-orange {
+  color: #ffffff;
+  background: var(--tusa-orange);
+  border-color: var(--tusa-orange);
+  box-shadow: 0 8px 22px rgba(240, 120, 50, 0.2);
+}
+
+.button-orange:hover:not(:disabled) {
+  color: #ffffff;
+  background: #d95f1d;
+  border-color: #d95f1d;
+  box-shadow: 0 12px 28px rgba(217, 95, 29, 0.25);
+}
+
+.button-dark {
+  color: #ffffff;
+  background: var(--tusa-dark);
+  border-color: var(--tusa-dark);
+}
+
+.button-dark:hover:not(:disabled) {
+  background: #3b4249;
+  border-color: #3b4249;
+}
+
+.button-outline {
+  color: var(--tusa-dark);
+  background: transparent;
+  border-color: rgba(34, 39, 44, 0.3);
+}
+
+.button-outline:hover:not(:disabled) {
+  color: #ffffff;
+  background: var(--tusa-dark);
+  border-color: var(--tusa-dark);
+}
+
+/* =========================================================
+   FORMULARIOS GLOBALES
+========================================================= */
+
+input,
+textarea,
+select {
+  color: #252b31;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9299a1;
+  opacity: 1;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b9bec3 #f0f1f2;
+}
+
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f0f1f2;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #b9bec3;
+  border: 2px solid #f0f1f2;
+  border-radius: 20px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--tusa-orange);
+}
+
+/* =========================================================
+   ANIMACIONES
+========================================================= */
+
+@keyframes tusa-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tusa-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tusa-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-icon {
+  animation: tusa-spin 0.9s linear infinite;
+}
+
+/* =========================================================
+   RESPONSIVE GLOBAL
+========================================================= */
+
+@media (max-width: 768px) {
+  .container {
+    width: min(100% - 40px, 1200px);
+  }
+
+  html {
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: min(100% - 32px, 1200px);
+  }
+
+  .button {
+    min-height: 46px;
+    padding: 12px 17px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

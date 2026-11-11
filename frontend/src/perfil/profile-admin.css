@@ -1,0 +1,785 @@
+
+/* =========================================================
+   TUSA WOOD — PERFIL DEL ADMINISTRADOR
+   Diseño administrativo moderno y responsive
+   ========================================================= */
+
+.tw-profile-page {
+  width: 100%;
+  min-width: 0;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 4px 0 30px;
+  color: #354254;
+  font-family: inherit;
+  box-sizing: border-box;
+  animation: profileFadeIn 0.4s ease both;
+}
+
+.tw-profile-page *,
+.tw-profile-page *::before,
+.tw-profile-page *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.tw-profile-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.tw-profile-heading h1 {
+  margin: 7px 0;
+  color: #172b3a;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  line-height: 1.25;
+}
+
+.tw-profile-heading p {
+  margin: 0;
+  color: #718096;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.tw-profile-page .tw-eyebrow {
+  display: inline-block;
+  color: #d97732;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  line-height: 1.5;
+}
+
+.tw-profile-heading-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  color: #d97732;
+  background: #fff0e4;
+  border: 1px solid #f8dfcc;
+  border-radius: 14px;
+  font-size: 25px;
+  animation: profileIconAppear 0.55s ease both;
+}
+
+/* =========================================================
+   DISTRIBUCIÓN PRINCIPAL
+   ========================================================= */
+
+.tw-profile-layout {
+  display: grid;
+  grid-template-columns: minmax(245px, 0.78fr) minmax(0, 1.45fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.tw-profile-card {
+  min-width: 0;
+  padding: 25px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e8edf1;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(25, 45, 60, 0.04);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+  animation: profileCardAppear 0.45s ease both;
+}
+
+.tw-profile-card:hover {
+  border-color: #dce4ea;
+  box-shadow: 0 9px 24px rgba(25, 45, 60, 0.07);
+}
+
+.tw-profile-summary {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 23px 24px;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(217, 119, 50, 0.09),
+      transparent 55%
+    ),
+    #ffffff;
+  animation-delay: 0.05s;
+}
+
+.tw-profile-information {
+  grid-column: 2;
+  grid-row: 1;
+  animation-delay: 0.12s;
+}
+
+.tw-profile-password {
+  grid-column: 2;
+  grid-row: 2;
+  animation-delay: 0.2s;
+}
+
+/* =========================================================
+   RESUMEN DEL PERFIL
+   ========================================================= */
+
+.tw-profile-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 21px;
+  overflow: hidden;
+  color: #ffffff;
+  background: linear-gradient(145deg, #f49a4d 0%, #d97732 55%, #bd5d20 100%);
+  border: 5px solid #fff0e4;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(217, 119, 50, 0.2);
+  font-size: 36px;
+  font-weight: 800;
+  text-transform: uppercase;
+  animation: profileAvatarAppear 0.65s ease both;
+}
+
+.tw-profile-summary .tw-eyebrow {
+  margin-bottom: 8px;
+  font-size: 10px;
+  letter-spacing: 1.3px;
+}
+
+.tw-profile-summary h2 {
+  max-width: 100%;
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #172b3a;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.tw-profile-summary > p {
+  max-width: 100%;
+  margin: 8px 0 17px;
+  overflow-wrap: anywhere;
+  color: #718096;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.tw-profile-role {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 29px;
+  padding: 6px 14px;
+  color: #a85b25;
+  background: #fff0e4;
+  border: 1px solid #f6d7c0;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+.tw-profile-summary-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 27px;
+  padding-top: 19px;
+  color: #687989;
+  border-top: 1px solid #edf1f4;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.tw-profile-status-dot {
+  display: inline-block;
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
+  background: #239b75;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(35, 155, 117, 0.12);
+  animation: profileStatusPulse 2s ease-in-out infinite;
+}
+
+/* =========================================================
+   ENCABEZADOS DE TARJETAS
+   ========================================================= */
+
+.tw-profile-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 25px;
+}
+
+.tw-profile-card-icon {
+  display: grid;
+  flex: 0 0 44px;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.tw-profile-card-icon.orange {
+  color: #d97732;
+  background: #fff0e4;
+}
+
+.tw-profile-card-icon.dark {
+  color: #315c78;
+  background: #e9f3fb;
+}
+
+.tw-profile-card-heading h2 {
+  margin: 0;
+  color: #172b3a;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.tw-profile-card-heading p {
+  margin: 5px 0 0;
+  color: #8996a4;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   FORMULARIOS — ESPACIADO CORREGIDO
+   ========================================================= */
+
+.tw-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+/* Cada campo tiene su propio espacio */
+.tw-profile-form label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+/* Etiquetas */
+.tw-profile-form label > span {
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: #354254;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.tw-profile-form label > span b {
+  color: #d97732;
+  font-weight: 800;
+}
+
+/* Campos de entrada */
+.tw-profile-form input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  min-height: 46px;
+  margin: 0;
+  padding: 0 14px;
+  color: #263b4b;
+  background: #fbfcfd;
+  border: 1px solid #dce4ea;
+  border-radius: 9px;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: normal;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.tw-profile-form input:hover {
+  border-color: #c2ced8;
+  background: #ffffff;
+}
+
+.tw-profile-form input:focus {
+  background: #ffffff;
+  border-color: #d97732;
+  box-shadow: 0 0 0 4px rgba(217, 119, 50, 0.12);
+}
+
+.tw-profile-form input:focus-visible {
+  outline: none;
+}
+
+.tw-profile-form input::placeholder {
+  color: #a0acb7;
+  font-size: 12px;
+}
+
+.tw-profile-form input:disabled {
+  color: #94a3b8;
+  background: #f1f5f9;
+  cursor: not-allowed;
+}
+
+/* Texto de ayuda */
+.tw-profile-form small {
+  display: block;
+  margin: 5px 0 0;
+  color: #8996a4;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   ACCIONES Y BOTONES
+   ========================================================= */
+
+.tw-profile-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  width: 100%;
+  margin-top: 2px;
+  padding-top: 18px;
+  border-top: 1px solid #edf1f4;
+}
+
+.tw-profile-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 165px;
+  min-height: 45px;
+  margin: 0;
+  padding: 11px 19px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #f49a4d 0%, #e87924 100%);
+  border: 1px solid #df7628;
+  border-radius: 9px;
+  box-shadow: 0 4px 11px rgba(217, 119, 50, 0.17);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.tw-profile-button:hover:not(:disabled) {
+  filter: brightness(1.04);
+  box-shadow: 0 7px 17px rgba(217, 119, 50, 0.25);
+  transform: translateY(-2px);
+}
+
+.tw-profile-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.tw-profile-button:focus-visible {
+  outline: 3px solid rgba(217, 119, 50, 0.3);
+  outline-offset: 3px;
+}
+
+.tw-profile-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.tw-button-spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: profileSpin 0.7s linear infinite;
+}
+
+/* =========================================================
+   CARGA
+   ========================================================= */
+
+.tw-profile-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 260px;
+  padding: 30px;
+  color: #687989;
+  font-size: 13px;
+  font-weight: 650;
+  animation: profileFadeIn 0.3s ease both;
+}
+
+.tw-profile-spinner {
+  display: inline-block;
+  flex: 0 0 25px;
+  width: 25px;
+  height: 25px;
+  border: 3px solid #f8dfcc;
+  border-top-color: #d97732;
+  border-radius: 50%;
+  animation: profileSpin 0.75s linear infinite;
+}
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+@keyframes profileFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes profileCardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(13px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes profileAvatarAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes profileIconAppear {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes profileStatusPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(35, 155, 117, 0.12);
+  }
+
+  50% {
+    box-shadow: 0 0 0 7px rgba(35, 155, 117, 0.04);
+  }
+}
+
+@keyframes profileSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   TABLETS
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .tw-profile-page {
+    padding-bottom: 22px;
+  }
+
+  .tw-profile-layout {
+    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.4fr);
+    gap: 16px;
+  }
+
+  .tw-profile-card {
+    padding: 21px;
+  }
+
+  .tw-profile-summary {
+    padding: 28px 18px 22px;
+  }
+}
+
+/* =========================================================
+   TABLETS PEQUEÑAS Y CELULARES
+   ========================================================= */
+
+@media (max-width: 720px) {
+  .tw-profile-heading {
+    align-items: flex-start;
+    margin-bottom: 22px;
+  }
+
+  .tw-profile-heading h1 {
+    font-size: 25px;
+  }
+
+  .tw-profile-heading p {
+    max-width: 500px;
+    font-size: 13px;
+  }
+
+  .tw-profile-heading-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 21px;
+  }
+
+  .tw-profile-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+  }
+
+  .tw-profile-summary,
+  .tw-profile-information,
+  .tw-profile-password {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .tw-profile-summary {
+    padding: 26px 20px 22px;
+  }
+
+  .tw-profile-card {
+    padding: 20px;
+    border-radius: 13px;
+  }
+
+  .tw-profile-avatar {
+    width: 84px;
+    height: 84px;
+    font-size: 31px;
+  }
+
+  .tw-profile-card-heading {
+    margin-bottom: 21px;
+  }
+
+  .tw-profile-form {
+    gap: 18px;
+  }
+
+  .tw-profile-actions {
+    justify-content: stretch;
+  }
+
+  .tw-profile-button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   CELULARES PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 400px) {
+  .tw-profile-heading h1 {
+    font-size: 23px;
+  }
+
+  .tw-profile-heading p {
+    font-size: 12px;
+  }
+
+  .tw-profile-heading-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .tw-profile-card {
+    padding: 16px;
+  }
+
+  .tw-profile-card-heading {
+    align-items: flex-start;
+    gap: 11px;
+  }
+
+  .tw-profile-card-icon {
+    flex-basis: 39px;
+    width: 39px;
+    height: 39px;
+    font-size: 18px;
+  }
+
+  .tw-profile-card-heading h2 {
+    font-size: 16px;
+  }
+
+  .tw-profile-form {
+    gap: 16px;
+  }
+
+  .tw-profile-form label {
+    gap: 7px;
+  }
+
+  .tw-profile-form input {
+    height: 44px;
+    min-height: 44px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+
+  .tw-profile-button {
+    min-height: 43px;
+    padding: 10px 13px;
+    font-size: 11px;
+  }
+}
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .tw-profile-page *,
+  .tw-profile-page *::before,
+  .tw-profile-page *::after,
+  .tw-profile-loading *,
+  .tw-profile-heading-icon {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* =========================================================
+   CORRECCIÓN DEFINITIVA — BORDES EXTERNOS DEL PERFIL
+   ========================================================= */
+
+/* El formulario no debe tener un marco exterior */
+.tw-profile-page .tw-profile-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Eliminar marcos adicionales de los campos */
+.tw-profile-page .tw-profile-form label {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Conservar únicamente el borde propio de cada input */
+.tw-profile-page .tw-profile-form input {
+  width: 100% !important;
+  min-height: 46px !important;
+  margin: 0 !important;
+
+  border: 1px solid #dce4ea !important;
+  border-radius: 9px !important;
+  box-shadow: none;
+  background: #fbfcfd !important;
+}
+
+/* Separar las acciones del formulario */
+.tw-profile-page .tw-profile-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  width: 100% !important;
+  margin: 4px 0 0 !important;
+  padding: 18px 0 0 !important;
+
+  border: 0 !important;
+  border-top: 1px solid #edf1f4 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Evitar que los estilos globales afecten las tarjetas */
+.tw-profile-page .tw-profile-card {
+  border: 1px solid #e8edf1 !important;
+  border-radius: 15px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(25, 45, 60, 0.04) !important;
+}
+
+@media (max-width: 720px) {
+  .tw-profile-page .tw-profile-actions {
+    justify-content: stretch !important;
+  }
+
+  .tw-profile-page .tw-profile-button {
+    width: 100% !important;
+  }
+}

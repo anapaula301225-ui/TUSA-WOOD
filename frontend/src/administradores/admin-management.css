@@ -1,0 +1,1104 @@
+/* =========================================================
+   TUSA WOOD — GESTIÓN DE ADMINISTRADORES
+   Usa las variables de tw-admin.css cuando existen y, si no,
+   los valores de la paleta de marca (carbón / naranja).
+   ========================================================= */
+
+:root {
+  --twam-orange: var(--tw-orange, #f07832);
+  --twam-orange-rgb: var(--tw-orange-rgb, 240, 120, 50);
+  --twam-orange-dark: var(--tw-orange-dark, #d9601c);
+  --twam-orange-light: var(--tw-orange-light, #ff9a5b);
+  --twam-orange-tint: var(--tw-orange-tint, #fff1e8);
+  --twam-orange-line: var(--tw-orange-line, #ffd3b8);
+  --twam-orange-text: var(--tw-orange-text, #b94d12);
+
+  --twam-dark: var(--tw-charcoal, #22272c);
+  --twam-text: var(--tw-text, #1d2328);
+  --twam-text-soft: var(--tw-text-soft, #3a444d);
+  --twam-muted: var(--tw-muted, #5d6872);
+  --twam-border: var(--tw-border, #dde2e6);
+  --twam-border-soft: var(--tw-border-soft, #e8ecef);
+  --twam-surface-alt: var(--tw-surface-alt, #f8f9fa);
+
+  --twam-ease: var(--tw-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  --twam-y: 12px;
+}
+
+/* =========================================================
+   CONTENEDOR
+   ========================================================= */
+
+.tw-admin-management {
+  width: 100%;
+  min-width: 0;
+  color: var(--twam-text-soft);
+  animation: twam-rise 0.5s var(--twam-ease) backwards;
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.tw-admin-management .tw-page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.tw-admin-management .tw-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--twam-orange-text);
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+/* Línea naranja como en el home */
+.tw-admin-management .tw-eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--twam-orange);
+  transform-origin: left center;
+  animation: twam-line 0.7s 0.2s var(--twam-ease) backwards;
+}
+
+.tw-admin-management .tw-page-heading h1 {
+  margin: 8px 0;
+  color: var(--twam-dark);
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.tw-admin-management .tw-page-heading p {
+  margin: 0;
+  color: var(--twam-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   BOTÓN PRINCIPAL
+   ========================================================= */
+
+.tw-admin-management .tw-button-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 20px;
+  overflow: hidden;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  border: 1px solid var(--twam-orange-dark);
+  border-radius: 10px;
+  background: linear-gradient(110deg, var(--twam-orange-dark), var(--twam-orange-light));
+  box-shadow: 0 5px 15px rgba(var(--twam-orange-rgb), 0.26);
+  cursor: pointer;
+  transition: transform 0.25s var(--twam-ease), box-shadow 0.25s;
+}
+
+/* Destello al pasar el cursor */
+.tw-admin-management .tw-button-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: translateX(-130%) skewX(-20deg);
+  pointer-events: none;
+}
+
+.tw-admin-management .tw-button-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(var(--twam-orange-rgb), 0.4);
+}
+
+.tw-admin-management .tw-button-primary:hover:not(:disabled)::after {
+  animation: twam-shine 0.85s ease;
+}
+
+.tw-admin-management .tw-button-primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.tw-admin-management .tw-button-icon {
+  display: inline-block;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 0.35s var(--twam-ease);
+}
+
+.tw-admin-management .tw-button-primary:hover:not(:disabled) .tw-button-icon {
+  transform: rotate(90deg);
+}
+
+.tw-admin-management button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   PANEL PRINCIPAL
+   ========================================================= */
+
+.tw-admin-management .tw-panel {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--twam-border);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(23, 27, 31, 0.045);
+  transition: border-color 0.25s, box-shadow 0.3s;
+  animation: twam-rise 0.6s 0.12s var(--twam-ease) backwards;
+}
+
+.tw-admin-management .tw-panel:hover {
+  border-color: #cdd4da;
+  box-shadow: 0 10px 30px rgba(23, 27, 31, 0.07);
+}
+
+/* =========================================================
+   BARRA DE BÚSQUEDA
+   ========================================================= */
+
+.tw-admin-management .tw-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--twam-border-soft);
+  background: var(--twam-surface-alt);
+}
+
+.tw-admin-management .tw-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.tw-admin-management .tw-search-icon {
+  position: absolute;
+  left: 14px;
+  color: #85909a;
+  font-size: 1.3rem;
+  pointer-events: none;
+  transition: color 0.2s, transform 0.3s var(--twam-ease);
+}
+
+/* El icono se ilumina cuando el buscador tiene el foco */
+.tw-admin-management .tw-search-container:focus-within .tw-search-icon {
+  color: var(--twam-orange);
+  transform: scale(1.1);
+}
+
+.tw-admin-management .tw-search {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px 0 44px;
+  color: var(--twam-text);
+  font-family: inherit;
+  font-size: 0.85rem;
+  border: 1px solid #cbd3d9;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tw-admin-management .tw-search::placeholder {
+  color: #77838d;
+}
+
+.tw-admin-management .tw-search:hover {
+  border-color: #aeb8c0;
+}
+
+.tw-admin-management .tw-search:focus {
+  border-color: var(--twam-orange);
+  box-shadow: 0 0 0 4px rgba(var(--twam-orange-rgb), 0.15);
+}
+
+.tw-admin-management .tw-result-count {
+  color: var(--twam-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   CARGANDO
+   ========================================================= */
+
+.tw-admin-management .tw-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 190px;
+  color: var(--twam-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.tw-admin-management .tw-spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--twam-orange-line);
+  border-top-color: var(--twam-orange);
+  border-right-color: var(--twam-orange);
+  border-radius: 50%;
+  animation: twAdminSpin 0.75s linear infinite;
+}
+
+/* =========================================================
+   TABLA DE ADMINISTRADORES
+   ========================================================= */
+
+.tw-admin-management .tw-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.tw-admin-management .tw-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.tw-admin-management .tw-table thead {
+  background: #f3f5f6;
+}
+
+.tw-admin-management .tw-table th {
+  padding: 15px 20px;
+  color: var(--twam-muted);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--twam-border);
+}
+
+.tw-admin-management .tw-table td {
+  padding: 16px 20px;
+  color: var(--twam-text-soft);
+  font-size: 0.82rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #edf0f2;
+  background: inherit;
+}
+
+.tw-admin-management .tw-table tbody tr {
+  background: #fff;
+  transition: background 0.2s;
+  animation: twam-fade 0.45s ease backwards;
+}
+
+.tw-admin-management .tw-table tbody tr:hover {
+  background: #fff8f3;
+}
+
+/* Marca naranja a la izquierda de la fila activa */
+.tw-admin-management .tw-table tbody tr td:first-child {
+  transition: box-shadow 0.25s;
+}
+
+.tw-admin-management .tw-table tbody tr:hover td:first-child {
+  box-shadow: inset 3px 0 var(--twam-orange);
+}
+
+.tw-admin-management .tw-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tw-admin-management .tw-table tbody tr:nth-child(1) { animation-delay: 0.15s; }
+.tw-admin-management .tw-table tbody tr:nth-child(2) { animation-delay: 0.21s; }
+.tw-admin-management .tw-table tbody tr:nth-child(3) { animation-delay: 0.27s; }
+.tw-admin-management .tw-table tbody tr:nth-child(4) { animation-delay: 0.33s; }
+.tw-admin-management .tw-table tbody tr:nth-child(5) { animation-delay: 0.39s; }
+.tw-admin-management .tw-table tbody tr:nth-child(6) { animation-delay: 0.45s; }
+.tw-admin-management .tw-table tbody tr:nth-child(7) { animation-delay: 0.51s; }
+.tw-admin-management .tw-table tbody tr:nth-child(8) { animation-delay: 0.57s; }
+
+/* =========================================================
+   INFORMACIÓN DEL ADMINISTRADOR
+   ========================================================= */
+
+.tw-admin-management .tw-admin-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 190px;
+}
+
+.tw-admin-management .tw-admin-avatar {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: var(--twam-orange-text);
+  font-size: 0.95rem;
+  font-weight: 900;
+  border: 1px solid var(--twam-orange-line);
+  border-radius: 11px;
+  background: var(--twam-orange-tint);
+  transition: transform 0.3s var(--twam-ease), background 0.25s, color 0.25s;
+}
+
+.tw-admin-management .tw-table tbody tr:hover .tw-admin-avatar {
+  color: #fff;
+  border-color: var(--twam-orange-dark);
+  background: linear-gradient(145deg, var(--twam-orange-light), var(--twam-orange-dark));
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.tw-admin-management .tw-admin-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.tw-admin-management .tw-admin-user-info strong {
+  color: var(--twam-text);
+  font-size: 0.83rem;
+  font-weight: 800;
+}
+
+.tw-admin-management .tw-admin-user-info small {
+  color: #6c7882;
+  font-size: 0.72rem;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   ETIQUETAS DE ROLES
+   ========================================================= */
+
+.tw-admin-management .tw-role-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  color: var(--twam-muted);
+  font-size: 0.66rem;
+  font-weight: 800;
+  white-space: nowrap;
+  border: 1px solid var(--twam-border);
+  border-radius: 7px;
+  background: #f0f3f5;
+}
+
+.tw-admin-management .tw-role-superadmin {
+  color: #9c3c08;
+  border-color: var(--twam-orange-line);
+  background: var(--twam-orange-tint);
+}
+
+.tw-admin-management .tw-role-admin {
+  color: #245b91;
+  border-color: #c7def4;
+  background: #e8f2fc;
+}
+
+.tw-admin-management .tw-role-ventas {
+  color: #176b48;
+  border-color: #bce8d0;
+  background: #e5f6ed;
+}
+
+.tw-admin-management .tw-role-gerencia {
+  color: #6844a0;
+  border-color: #dfd0f5;
+  background: #f2ebfc;
+}
+
+/* =========================================================
+   ESTADOS DE CUENTA
+   ========================================================= */
+
+.tw-admin-management .tw-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 20px;
+}
+
+.tw-admin-management .tw-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.tw-admin-management .tw-status.activo {
+  color: #176b48;
+  border-color: #bce8d0;
+  background: #e5f6ed;
+}
+
+.tw-admin-management .tw-status.inactivo {
+  color: #a52c25;
+  border-color: #f0c2be;
+  background: #ffedeb;
+}
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.tw-admin-management .tw-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.tw-admin-management .tw-action-button {
+  padding: 8px 12px;
+  color: #245b91;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border: 1px solid #c7def4;
+  border-radius: 8px;
+  background: #edf6fb;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.25s var(--twam-ease), box-shadow 0.25s;
+}
+
+.tw-admin-management .tw-action-button:hover:not(:disabled) {
+  background: #dceef8;
+  box-shadow: 0 4px 12px rgba(36, 91, 145, 0.15);
+  transform: translateY(-1px);
+}
+
+.tw-admin-management .tw-action-button:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+}
+
+.tw-admin-management .tw-action-button.danger {
+  color: #a52c25;
+  border-color: #f0c2be;
+  background: #fceaea;
+}
+
+.tw-admin-management .tw-action-button.danger:hover:not(:disabled) {
+  background: #f8dada;
+  box-shadow: 0 4px 12px rgba(165, 44, 37, 0.15);
+}
+
+.tw-admin-management .tw-action-button.success {
+  color: #176b48;
+  border-color: #bce8d0;
+  background: #e6f7ef;
+}
+
+.tw-admin-management .tw-action-button.success:hover:not(:disabled) {
+  background: #d4f0e1;
+  box-shadow: 0 4px 12px rgba(23, 107, 72, 0.15);
+}
+
+/* =========================================================
+   ESTADO VACÍO
+   ========================================================= */
+
+.tw-admin-management .tw-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 52px 20px;
+  text-align: center;
+}
+
+.tw-admin-management .tw-empty-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 16px;
+  color: var(--twam-orange-text);
+  font-size: 1.7rem;
+  border: 1px solid var(--twam-orange-line);
+  border-radius: 16px;
+  background: var(--twam-orange-tint);
+}
+
+.tw-admin-management .tw-empty strong {
+  color: var(--twam-text);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.tw-admin-management .tw-empty p {
+  max-width: 390px;
+  margin: 8px 0 0;
+  color: var(--twam-muted);
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   ACCESIBILIDAD (FOCO)
+   ========================================================= */
+
+.tw-admin-management button:focus-visible {
+  outline: 3px solid rgba(var(--twam-orange-rgb), 0.45);
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   MODAL (portal en document.body, clases con prefijo twam-)
+   No depende de .tw-admin-management ni de CSS global del
+   dashboard, por eso cubre toda la pantalla sin franjas.
+   ========================================================= */
+
+.twam-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgba(15, 19, 22, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  animation: twam-fade 0.22s ease both;
+}
+
+.twam-modal {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
+  margin: 0;
+  padding: 32px 30px 28px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: var(--twam-text-soft);
+  font-family: inherit;
+  border: 1px solid var(--twam-border);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 25px 90px rgba(0, 0, 0, 0.34);
+  scrollbar-width: thin;
+  animation: twam-modal 0.35s var(--twam-ease) both;
+}
+
+/* Filete naranja superior, como en el resto del panel */
+.twam-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--twam-orange), rgba(var(--twam-orange-rgb), 0));
+}
+
+.twam-modal *,
+.twam-modal *::before,
+.twam-modal *::after {
+  box-sizing: border-box;
+}
+
+/* Cabecera */
+.twam-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 26px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.twam-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--twam-orange-text);
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.twam-eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background: var(--twam-orange);
+}
+
+.twam-heading h2 {
+  margin: 8px 0;
+  color: var(--twam-dark);
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+
+.twam-heading p {
+  margin: 0;
+  color: var(--twam-muted);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.twam-close {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  color: #465563;
+  font-family: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+  border: 1px solid #d5dde4;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.3s var(--twam-ease);
+}
+
+.twam-close:hover:not(:disabled) {
+  color: #fff;
+  border-color: var(--twam-orange-dark);
+  background: var(--twam-orange);
+  transform: rotate(90deg);
+}
+
+/* Formulario */
+.twam-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 19px;
+}
+
+.twam-grid > * {
+  animation: twam-rise 0.45s var(--twam-ease) backwards;
+}
+
+.twam-grid > :nth-child(1) { animation-delay: 0.1s; }
+.twam-grid > :nth-child(2) { animation-delay: 0.16s; }
+.twam-grid > :nth-child(3) { animation-delay: 0.22s; }
+.twam-grid > :nth-child(4) { animation-delay: 0.28s; }
+.twam-grid > :nth-child(5) { animation-delay: 0.34s; }
+.twam-grid > :nth-child(6) { animation-delay: 0.4s; }
+
+.twam-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  color: var(--twam-text-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.twam-grid label > span {
+  color: var(--twam-text-soft);
+}
+
+.twam-grid input,
+.twam-grid select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 13px;
+  color: var(--twam-text);
+  font-family: inherit;
+  font-size: 0.86rem;
+  border: 1px solid #cbd3d9;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.twam-grid select {
+  cursor: pointer;
+}
+
+.twam-grid input::placeholder {
+  color: #85909a;
+}
+
+.twam-grid input:hover:not(:disabled),
+.twam-grid select:hover:not(:disabled) {
+  border-color: #aeb8c0;
+}
+
+.twam-grid input:focus,
+.twam-grid select:focus {
+  border-color: var(--twam-orange);
+  box-shadow: 0 0 0 4px rgba(var(--twam-orange-rgb), 0.15);
+}
+
+.twam-grid input:disabled,
+.twam-grid select:disabled {
+  color: var(--twam-muted);
+  background: #f3f5f6;
+  cursor: not-allowed;
+}
+
+/* Campo inválido (solo tras interactuar) */
+.twam-grid input:user-invalid,
+.twam-grid select:user-invalid {
+  border-color: #c9372c;
+  box-shadow: 0 0 0 4px rgba(201, 55, 44, 0.12);
+}
+
+.twam-hint {
+  color: #6c7882;
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.twam-full {
+  grid-column: 1 / -1;
+}
+
+/* Botones */
+.twam-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 28px 0 0;
+  padding: 20px 0 0;
+  border: none;
+  border-top: 1px solid var(--twam-border-soft);
+  background: none;
+}
+
+.twam-btn-primary,
+.twam-btn-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 20px;
+  overflow: hidden;
+  font-family: inherit;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.25s var(--twam-ease), box-shadow 0.25s, background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.twam-btn-primary {
+  color: #fff;
+  font-weight: 800;
+  border: 1px solid var(--twam-orange-dark);
+  background: linear-gradient(110deg, var(--twam-orange-dark), var(--twam-orange-light));
+  box-shadow: 0 5px 15px rgba(var(--twam-orange-rgb), 0.26);
+}
+
+.twam-btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: translateX(-130%) skewX(-20deg);
+  pointer-events: none;
+}
+
+.twam-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(var(--twam-orange-rgb), 0.4);
+}
+
+.twam-btn-primary:hover:not(:disabled)::after {
+  animation: twam-shine 0.85s ease;
+}
+
+.twam-btn-primary:active:not(:disabled),
+.twam-btn-secondary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.twam-btn-secondary {
+  color: var(--twam-text-soft);
+  font-weight: 700;
+  border: 1px solid #cbd3d9;
+  background: #fff;
+}
+
+.twam-btn-secondary:hover:not(:disabled) {
+  color: #a53d07;
+  border-color: #ffb58c;
+  background: #fff7f1;
+}
+
+.twam-modal button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.twam-modal button:focus-visible {
+  outline: 3px solid rgba(var(--twam-orange-rgb), 0.45);
+  outline-offset: 3px;
+}
+
+.twam-spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: twAdminSpin 0.75s linear infinite;
+}
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+@keyframes twAdminSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes twam-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes twam-rise {
+  from { opacity: 0; transform: translateY(var(--twam-y)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes twam-modal {
+  from { opacity: 0; transform: translateY(calc(var(--twam-y) * 1.6)) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes twam-sheet {
+  from { opacity: 0; transform: translateY(calc(var(--twam-y) * 3)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes twam-line {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes twam-shine {
+  from { transform: translateX(-130%) skewX(-20deg); }
+  to { transform: translateX(380%) skewX(-20deg); }
+}
+
+@keyframes twam-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+
+@keyframes twam-ring {
+  0% { box-shadow: 0 0 0 0 rgba(23, 107, 72, 0.45); }
+  70%, 100% { box-shadow: 0 0 0 7px rgba(23, 107, 72, 0); }
+}
+
+/* Animaciones continuas: solo si el sistema permite movimiento */
+@media (prefers-reduced-motion: no-preference) {
+  .tw-admin-management .tw-empty-icon {
+    animation: twam-float 3.6s ease-in-out infinite;
+  }
+
+  .tw-admin-management .tw-status.activo::before {
+    animation: twam-ring 2.4s ease-out infinite;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .tw-admin-management .tw-table th,
+  .tw-admin-management .tw-table td {
+    padding: 14px 15px;
+  }
+
+  .tw-admin-management .tw-table {
+    min-width: 700px;
+  }
+
+  /* La primera columna queda fija al desplazar la tabla */
+  .tw-admin-management .tw-table th:first-child,
+  .tw-admin-management .tw-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: #fff;
+    box-shadow: 6px 0 10px -8px rgba(23, 27, 31, 0.18);
+  }
+
+  .tw-admin-management .tw-table th:first-child {
+    background: #f3f5f6;
+  }
+
+  .tw-admin-management .tw-table tbody tr:hover td:first-child {
+    background: #fff8f3;
+    box-shadow:
+      inset 3px 0 var(--twam-orange),
+      6px 0 10px -8px rgba(23, 27, 31, 0.18);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MÓVIL
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .tw-admin-management .tw-page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .tw-admin-management .tw-page-heading h1 {
+    font-size: 1.6rem;
+  }
+
+  .tw-admin-management .tw-page-heading > button {
+    width: 100%;
+  }
+
+  .tw-admin-management .tw-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 17px;
+  }
+
+  .tw-admin-management .tw-search-container {
+    max-width: none;
+  }
+
+  .tw-admin-management .tw-search {
+    font-size: 1rem; /* evita el zoom automático en iOS */
+  }
+
+  .tw-admin-management .tw-result-count {
+    align-self: flex-start;
+  }
+
+  /* El modal se comporta como una hoja inferior */
+  .twam-backdrop {
+    align-items: flex-end;
+    padding: 12px;
+  }
+
+  .twam-modal {
+    max-width: none;
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 26px 22px 22px;
+    border-radius: 18px;
+    animation-name: twam-sheet;
+  }
+
+  .twam-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .twam-grid input,
+  .twam-grid select {
+    font-size: 1rem; /* evita el zoom automático en iOS */
+  }
+
+  .twam-full {
+    grid-column: auto;
+  }
+
+  .twam-actions {
+    flex-direction: column-reverse;
+  }
+
+  .twam-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .tw-admin-management .tw-admin-user {
+    min-width: 160px;
+  }
+
+  .twam-modal {
+    padding: 22px 18px 18px;
+  }
+
+  .twam-heading h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* =========================================================
+   ACCESIBILIDAD — MOVIMIENTO REDUCIDO
+   Se conservan los fundidos suaves; se eliminan los
+   desplazamientos y las animaciones en bucle.
+   El spinner de carga se mantiene porque es funcional.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --twam-y: 0px;
+  }
+
+  .tw-admin-management .tw-button-primary:hover::after,
+  .twam-btn-primary:hover::after {
+    animation: none;
+  }
+
+  .twam-modal {
+    animation-name: twam-fade;
+  }
+}

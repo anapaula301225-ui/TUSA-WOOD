@@ -1,0 +1,1552 @@
+/* =========================================================
+   TUSA WOOD — GESTIÓN DE COTIZACIONES
+   Usa las variables de tw-admin.css cuando existen y, si no,
+   los valores de la paleta de marca (carbón / naranja).
+   ========================================================= */
+
+:root {
+  --q-orange: var(--tw-orange, #f07832);
+  --q-orange-rgb: var(--tw-orange-rgb, 240, 120, 50);
+  --q-orange-dark: var(--tw-orange-dark, #d9601c);
+  --q-orange-light: var(--tw-orange-light, #ff9a5b);
+  --q-orange-tint: var(--tw-orange-tint, #fff1e8);
+  --q-orange-line: var(--tw-orange-line, #ffd3b8);
+  --q-orange-text: var(--tw-orange-text, #b94d12);
+
+  --q-dark: var(--tw-charcoal, #22272c);
+  --q-text: var(--tw-text, #1d2328);
+  --q-text-soft: var(--tw-text-soft, #3a444d);
+  --q-muted: var(--tw-muted, #5d6872);
+  --q-border: var(--tw-border, #dde2e6);
+  --q-border-soft: var(--tw-border-soft, #e8ecef);
+  --q-surface-alt: var(--tw-surface-alt, #f8f9fa);
+
+  --q-ease: var(--tw-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  --q-y: 12px;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+.quotes-page {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  color: var(--q-text-soft);
+  font-family: inherit;
+  animation: quotesFadeIn 0.5s var(--q-ease) backwards;
+}
+
+.quotes-page *,
+.quote-modal-overlay *,
+.quote-modal-overlay *::before,
+.quote-modal-overlay *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.quotes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.quotes-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--q-orange-text);
+  font-size: 0.69rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+/* Línea naranja como en el home */
+.quotes-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--q-orange);
+  transform-origin: left center;
+  animation: quotesLine 0.7s 0.2s var(--q-ease) backwards;
+}
+
+.quotes-header h1 {
+  margin: 8px 0;
+  color: var(--q-dark);
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.quotes-header p {
+  margin: 0;
+  color: var(--q-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.quotes-refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 0 18px;
+  color: var(--q-text-soft);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: 1px solid #cbd3d9;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.25s,
+    transform 0.25s var(--q-ease);
+}
+
+.quotes-refresh:hover:not(:disabled) {
+  color: var(--q-orange-text);
+  border-color: #ffb58c;
+  background: #fff8f3;
+  box-shadow: 0 4px 13px rgba(var(--q-orange-rgb), 0.14);
+  transform: translateY(-2px);
+}
+
+.quotes-refresh:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.quotes-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.quotes-refresh-icon {
+  display: inline-block;
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform 0.45s var(--q-ease);
+}
+
+.quotes-refresh:hover:not(:disabled) .quotes-refresh-icon {
+  transform: rotate(180deg);
+}
+
+/* Mientras actualiza, el icono gira */
+.quotes-refresh:disabled .quotes-refresh-icon {
+  animation: quotesSpin 0.9s linear infinite;
+}
+
+/* =========================================================
+   INDICADORES
+   ========================================================= */
+
+.quotes-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.quote-stat {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid var(--q-border);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff, var(--q-surface-alt));
+  box-shadow: 0 5px 19px rgba(23, 27, 31, 0.04);
+  transition:
+    transform 0.3s var(--q-ease),
+    box-shadow 0.3s,
+    border-color 0.25s;
+  /* backwards: así el hover con transform sí funciona */
+  animation: quoteCardEnter 0.55s var(--q-ease) backwards;
+}
+
+.quote-stat:nth-child(1) { animation-delay: 0.08s; }
+.quote-stat:nth-child(2) { animation-delay: 0.16s; }
+.quote-stat:nth-child(3) { animation-delay: 0.24s; }
+.quote-stat:nth-child(4) { animation-delay: 0.32s; }
+
+/* Filete naranja superior que se dibuja al cargar */
+.quote-stat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--q-orange), rgba(var(--q-orange-rgb), 0.1));
+  transform-origin: left center;
+  animation: quotesLine 0.9s 0.35s var(--q-ease) backwards;
+}
+
+.quote-stat:hover {
+  border-color: #ffb58c;
+  box-shadow: 0 14px 34px rgba(23, 27, 31, 0.1);
+  transform: translateY(-5px);
+}
+
+.quote-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  transition: transform 0.35s var(--q-ease);
+}
+
+.quote-stat:hover .quote-stat-icon {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.total-icon {
+  color: var(--q-orange-text);
+  border-color: var(--q-orange-line);
+  background: var(--q-orange-tint);
+}
+
+.pending-icon {
+  color: #95520b;
+  border-color: #f2d9a7;
+  background: #fff2d9;
+}
+
+.review-icon {
+  color: #245b91;
+  border-color: #c7def4;
+  background: #e8f2fc;
+}
+
+.approved-icon {
+  color: #176b48;
+  border-color: #bce8d0;
+  background: #e5f6ed;
+}
+
+.quote-stat > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.quote-stat span {
+  color: var(--q-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.quote-stat strong {
+  color: var(--q-dark);
+  font-size: 1.85rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   BÚSQUEDA Y FILTROS
+   ========================================================= */
+
+.quotes-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.quotes-search {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 11px;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 15px;
+  border: 1px solid #cbd3d9;
+  border-radius: 10px;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quotes-search:hover {
+  border-color: #aeb8c0;
+}
+
+.quotes-search:focus-within {
+  border-color: var(--q-orange);
+  box-shadow: 0 0 0 4px rgba(var(--q-orange-rgb), 0.15);
+}
+
+.quotes-search > span {
+  color: #85909a;
+  font-size: 1.4rem;
+  transition: color 0.2s, transform 0.3s var(--q-ease);
+}
+
+/* La lupa se ilumina cuando el buscador tiene el foco */
+.quotes-search:focus-within > span {
+  color: var(--q-orange);
+  transform: scale(1.1);
+}
+
+.quotes-search input {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 0;
+  color: var(--q-text);
+  font: inherit;
+  font-size: 0.85rem;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.quotes-search input::placeholder {
+  color: #77838d;
+}
+
+.quotes-toolbar > select {
+  min-width: 190px;
+  height: 46px;
+  padding: 0 35px 0 13px;
+  color: var(--q-text-soft);
+  font: inherit;
+  font-size: 0.85rem;
+  border: 1px solid #cbd3d9;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quotes-toolbar > select:hover {
+  border-color: #aeb8c0;
+}
+
+.quotes-toolbar > select:focus {
+  border-color: var(--q-orange);
+  box-shadow: 0 0 0 4px rgba(var(--q-orange-rgb), 0.15);
+}
+
+/* =========================================================
+   ERROR DE CARGA
+   ========================================================= */
+
+.quotes-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+  padding: 14px 17px;
+  color: #8f1d16;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  border: 1px solid #efc0bc;
+  border-left: 4px solid #a52c25;
+  border-radius: 10px;
+  background: #fff0ef;
+  animation: quotesSlideIn 0.4s var(--q-ease) backwards;
+}
+
+.quotes-error button {
+  flex-shrink: 0;
+  color: #a52c25;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.quotes-error button:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   CONTENEDOR DE TABLA
+   ========================================================= */
+
+.quotes-table-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--q-border);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(23, 27, 31, 0.045);
+  transition: border-color 0.25s, box-shadow 0.3s;
+  animation: quoteCardEnter 0.6s 0.3s var(--q-ease) backwards;
+}
+
+.quotes-table-card:hover {
+  border-color: #cdd4da;
+  box-shadow: 0 10px 30px rgba(23, 27, 31, 0.07);
+}
+
+.quotes-table-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--q-border-soft);
+  background: linear-gradient(100deg, #fff, var(--q-surface-alt));
+}
+
+.quotes-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--q-orange-text);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.quotes-section-label::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  background: var(--q-orange);
+}
+
+.quotes-table-heading h2 {
+  margin: 8px 0 5px;
+  color: var(--q-text);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.quotes-table-heading p {
+  margin: 0;
+  color: var(--q-muted);
+  font-size: 0.8rem;
+}
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.quotes-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.quotes-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.quotes-table thead {
+  background: #f3f5f6;
+}
+
+.quotes-table th {
+  padding: 14px 16px;
+  color: var(--q-muted);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--q-border);
+}
+
+.quotes-table td {
+  padding: 16px;
+  color: var(--q-text-soft);
+  font-size: 0.82rem;
+  vertical-align: middle;
+  white-space: nowrap;
+  border-bottom: 1px solid #edf0f2;
+  background: inherit;
+}
+
+.quotes-table tbody tr {
+  background: #fff;
+  transition: background 0.2s;
+  animation: quotesFade 0.45s ease backwards;
+}
+
+.quotes-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.quotes-table tbody tr:hover {
+  background: #fff8f3;
+}
+
+.quotes-table tbody tr:nth-child(1) { animation-delay: 0.35s; }
+.quotes-table tbody tr:nth-child(2) { animation-delay: 0.41s; }
+.quotes-table tbody tr:nth-child(3) { animation-delay: 0.47s; }
+.quotes-table tbody tr:nth-child(4) { animation-delay: 0.53s; }
+.quotes-table tbody tr:nth-child(5) { animation-delay: 0.59s; }
+.quotes-table tbody tr:nth-child(6) { animation-delay: 0.65s; }
+.quotes-table tbody tr:nth-child(7) { animation-delay: 0.71s; }
+.quotes-table tbody tr:nth-child(8) { animation-delay: 0.77s; }
+
+/* Marca naranja a la izquierda de la fila activa */
+.quotes-table tbody tr td:first-child {
+  transition: box-shadow 0.25s;
+}
+
+.quotes-table tbody tr:hover td:first-child {
+  box-shadow: inset 3px 0 var(--q-orange);
+}
+
+.quote-code {
+  color: var(--q-orange-text);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.quote-client {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--q-text);
+  font-weight: 700;
+}
+
+.quote-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  color: var(--q-orange-text);
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: 1px solid var(--q-orange-line);
+  border-radius: 50%;
+  background: var(--q-orange-tint);
+  transition: transform 0.3s var(--q-ease), background 0.25s, color 0.25s;
+}
+
+.quotes-table tbody tr:hover .quote-avatar {
+  color: #fff;
+  border-color: var(--q-orange-dark);
+  background: linear-gradient(145deg, var(--q-orange-light), var(--q-orange-dark));
+  transform: scale(1.1);
+}
+
+.quote-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 6px 11px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 20px;
+}
+
+.quote-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.quote-status.pendiente {
+  color: #95520b;
+  border-color: #f2d9a7;
+  background: #fff2d9;
+}
+
+.quote-status.revision {
+  color: #245b91;
+  border-color: #c5dcf2;
+  background: #e8f2fc;
+}
+
+.quote-status.aprobada {
+  color: #176b48;
+  border-color: #bce8d0;
+  background: #e5f6ed;
+}
+
+.quote-status.rechazada {
+  color: #a52c25;
+  border-color: #f0c2be;
+  background: #ffedeb;
+}
+
+.quote-detail-button {
+  padding: 8px 13px;
+  color: #245b91;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border: 1px solid #c7def4;
+  border-radius: 8px;
+  background: #edf6fb;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    box-shadow 0.25s,
+    transform 0.25s var(--q-ease);
+}
+
+.quote-detail-button:hover {
+  background: #dceef8;
+  box-shadow: 0 5px 12px rgba(36, 91, 145, 0.16);
+  transform: translateY(-2px);
+}
+
+.quote-detail-button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* =========================================================
+   CARGANDO Y ESTADOS VACÍOS
+   ========================================================= */
+
+.quotes-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  min-height: 190px;
+  padding: 35px;
+  color: var(--q-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: #fff;
+}
+
+.quotes-loading p {
+  margin: 0;
+}
+
+.quotes-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--q-orange-line);
+  border-top-color: var(--q-orange);
+  border-right-color: var(--q-orange);
+  border-radius: 50%;
+  animation: quotesSpin 0.75s linear infinite;
+}
+
+.quotes-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 230px;
+  padding: 35px;
+  text-align: center;
+}
+
+.quotes-empty > span {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 14px;
+  color: var(--q-orange-text);
+  font-size: 1.7rem;
+  border: 1px solid var(--q-orange-line);
+  border-radius: 16px;
+  background: var(--q-orange-tint);
+}
+
+.quotes-empty h3 {
+  margin: 0;
+  color: var(--q-text);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.quotes-empty p {
+  margin: 8px 0 0;
+  color: var(--q-muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   MODAL — OVERLAY Y FONDO
+   ========================================================= */
+
+.quote-modal-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  padding: 25px !important;
+  background: rgba(15, 19, 22, 0.74) !important;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  isolation: isolate;
+  animation: quoteOverlayAppear 0.22s ease both;
+}
+
+.quote-modal-backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  cursor: default;
+}
+
+/* =========================================================
+   VENTANA PRINCIPAL DEL MODAL
+   ========================================================= */
+
+.quote-modal {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: 850px !important;
+  max-height: calc(100vh - 50px) !important;
+  max-height: calc(100dvh - 50px) !important;
+  min-height: 180px;
+  margin: auto !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  color: var(--q-text) !important;
+  border: 1px solid var(--q-border) !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 25px 90px rgba(0, 0, 0, 0.34) !important;
+  animation: quoteModalAppear 0.35s var(--q-ease) both;
+}
+
+/* =========================================================
+   CABECERA DEL MODAL
+   ========================================================= */
+
+.quote-modal-header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-shrink: 0;
+  padding: 26px 29px 22px;
+  border-bottom: 1px solid var(--q-border-soft);
+  background: linear-gradient(110deg, #fff, #f7f8f9) !important;
+}
+
+/* Filete naranja superior */
+.quote-modal-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--q-orange), rgba(var(--q-orange-rgb), 0));
+}
+
+.quote-modal-header .quotes-eyebrow {
+  margin-bottom: 7px;
+}
+
+.quote-modal-header h2 {
+  margin: 7px 0;
+  color: var(--q-dark) !important;
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+}
+
+.quote-modal-header p {
+  margin: 0;
+  color: var(--q-muted) !important;
+  font-size: 0.8rem;
+}
+
+.quote-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  color: #465563 !important;
+  font-size: 1.55rem;
+  line-height: 1;
+  border: 1px solid #d5dde4;
+  border-radius: 10px;
+  background: #fff !important;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.3s var(--q-ease);
+}
+
+.quote-modal-close:hover:not(:disabled) {
+  color: #fff !important;
+  border-color: var(--q-orange-dark);
+  background: var(--q-orange) !important;
+  transform: rotate(90deg);
+}
+
+.quote-modal-close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   CUERPO DEL MODAL
+   ========================================================= */
+
+.quote-modal-body {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  padding: 24px 29px 30px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: var(--q-text-soft) !important;
+  background: #fff !important;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #b8c1c8 transparent;
+}
+
+.quote-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quote-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.quote-modal-body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #b8c1c8;
+}
+
+.quote-modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--q-orange);
+}
+
+/* =========================================================
+   SECCIONES
+   ========================================================= */
+
+.quote-detail-section {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid var(--q-border);
+  border-radius: 12px;
+  background: #fff !important;
+  box-shadow: 0 3px 12px rgba(23, 27, 31, 0.03);
+  transition: border-color 0.25s, box-shadow 0.3s;
+  animation: quoteSectionAppear 0.45s var(--q-ease) backwards;
+}
+
+.quote-detail-section:nth-child(1) { animation-delay: 0.1s; }
+.quote-detail-section:nth-child(2) { animation-delay: 0.17s; }
+.quote-detail-section:nth-child(3) { animation-delay: 0.24s; }
+.quote-detail-section:nth-child(4) { animation-delay: 0.31s; }
+.quote-detail-section:nth-child(5) { animation-delay: 0.38s; }
+
+.quote-detail-section:hover {
+  border-color: #cdd4da;
+  box-shadow: 0 8px 22px rgba(23, 27, 31, 0.06);
+}
+
+.quote-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.quote-detail-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 17px;
+  color: var(--q-text) !important;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.quote-detail-section h3::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 18px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, var(--q-orange-light), var(--q-orange-dark));
+}
+
+/* =========================================================
+   INFORMACIÓN DEL CLIENTE
+   ========================================================= */
+
+.quote-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 25px;
+}
+
+.quote-info-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.quote-info-grid span {
+  color: #6c7882 !important;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.quote-info-grid strong {
+  color: var(--q-text) !important;
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   PRODUCTOS
+   ========================================================= */
+
+.quote-products-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-product-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #edf0f2;
+  transition: background 0.2s;
+}
+
+.quote-product-row:first-child {
+  padding-top: 0;
+}
+
+.quote-product-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.quote-product-row > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.quote-product-row > div:first-child strong {
+  color: var(--q-text) !important;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.quote-product-row span {
+  color: var(--q-muted) !important;
+  font-size: 0.78rem;
+}
+
+.quote-product-row p {
+  margin: 0;
+  color: var(--q-muted) !important;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.quote-product-prices {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.quote-product-prices strong {
+  color: var(--q-orange-text) !important;
+  font-size: 0.92rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.quote-no-details {
+  margin: 0;
+  padding: 13px 14px;
+  color: var(--q-muted) !important;
+  font-size: 0.8rem;
+  border: 1px dashed #cbd3d9;
+  border-radius: 9px;
+  background: var(--q-surface-alt) !important;
+}
+
+/* =========================================================
+   MENSAJES Y OBSERVACIONES
+   ========================================================= */
+
+.quote-message {
+  margin: 0;
+  padding: 14px 15px;
+  color: var(--q-text-soft) !important;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  border: 1px solid var(--q-border-soft);
+  border-left: 3px solid var(--q-orange);
+  border-radius: 9px;
+  background: var(--q-surface-alt) !important;
+}
+
+/* =========================================================
+   FORMULARIO DE ESTADO
+   ========================================================= */
+
+.quote-status-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.quote-status-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.quote-status-form label > span {
+  color: var(--q-text-soft) !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.quote-status-form select,
+.quote-status-form textarea {
+  width: 100%;
+  color: var(--q-text) !important;
+  font: inherit;
+  font-size: 0.86rem;
+  border: 1px solid #cbd3d9;
+  border-radius: 9px;
+  outline: none;
+  background: #fff !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quote-status-form select {
+  height: 46px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.quote-status-form textarea {
+  min-height: 90px;
+  padding: 12px;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.quote-status-form select:hover:not(:disabled),
+.quote-status-form textarea:hover:not(:disabled) {
+  border-color: #aeb8c0;
+}
+
+.quote-status-form select:focus,
+.quote-status-form textarea:focus {
+  border-color: var(--q-orange);
+  box-shadow: 0 0 0 4px rgba(var(--q-orange-rgb), 0.15);
+}
+
+.quote-status-form textarea::placeholder {
+  color: #85909a;
+}
+
+.quote-status-form select:disabled,
+.quote-status-form textarea:disabled {
+  background: #f3f5f6 !important;
+  cursor: not-allowed;
+}
+
+.quote-save-button {
+  position: relative;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 22px;
+  overflow: hidden;
+  color: #fff !important;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: 1px solid var(--q-orange-dark);
+  border-radius: 10px;
+  background: linear-gradient(110deg, var(--q-orange-dark), var(--q-orange-light)) !important;
+  box-shadow: 0 5px 15px rgba(var(--q-orange-rgb), 0.26);
+  cursor: pointer;
+  transition:
+    transform 0.25s var(--q-ease),
+    box-shadow 0.25s,
+    opacity 0.2s;
+}
+
+/* Destello al pasar el cursor */
+.quote-save-button::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: translateX(-130%) skewX(-20deg);
+  pointer-events: none;
+}
+
+.quote-save-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(var(--q-orange-rgb), 0.4);
+}
+
+.quote-save-button:hover:not(:disabled)::after {
+  animation: quotesShine 0.85s ease;
+}
+
+.quote-save-button:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.quote-save-button:disabled {
+  border-color: #cbd2dc;
+  background: #cbd2dc !important;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   HISTORIAL
+   ========================================================= */
+
+.quote-history {
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-history-item {
+  position: relative;
+  display: flex;
+  gap: 13px;
+  padding-bottom: 20px;
+  animation: quoteSectionAppear 0.45s var(--q-ease) backwards;
+}
+
+.quote-history-item:nth-child(1) { animation-delay: 0.3s; }
+.quote-history-item:nth-child(2) { animation-delay: 0.38s; }
+.quote-history-item:nth-child(3) { animation-delay: 0.46s; }
+.quote-history-item:nth-child(4) { animation-delay: 0.54s; }
+
+.quote-history-item:last-child {
+  padding-bottom: 0;
+}
+
+.quote-history-dot {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  margin-top: 3px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--q-orange);
+  box-shadow: 0 0 0 2px var(--q-orange-line);
+}
+
+.quote-history-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 17px;
+  bottom: 0;
+  left: 5px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--q-orange-line), var(--q-border-soft));
+}
+
+.quote-history-item > div {
+  min-width: 0;
+}
+
+.quote-history-item strong {
+  display: block;
+  color: var(--q-text) !important;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.quote-history-item p {
+  margin: 6px 0;
+  color: var(--q-muted) !important;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.quote-history-item small {
+  color: #6c7882 !important;
+  font-size: 0.68rem;
+}
+
+/* =========================================================
+   FOCO (ACCESIBILIDAD)
+   ========================================================= */
+
+.quotes-refresh:focus-visible,
+.quote-modal-close:focus-visible,
+.quote-save-button:focus-visible,
+.quote-detail-button:focus-visible,
+.quotes-error button:focus-visible {
+  outline: 3px solid rgba(var(--q-orange-rgb), 0.45);
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+@keyframes quotesFadeIn {
+  from { opacity: 0; transform: translateY(calc(var(--q-y) * 0.6)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes quoteCardEnter {
+  from { opacity: 0; transform: translateY(var(--q-y)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes quotesFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes quotesSlideIn {
+  from { opacity: 0; transform: translateX(calc(var(--q-y) * -1)); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes quoteOverlayAppear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes quoteModalAppear {
+  from { opacity: 0; transform: translateY(calc(var(--q-y) * 1.6)) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes quoteSheetAppear {
+  from { opacity: 0; transform: translateY(calc(var(--q-y) * 4)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes quoteSectionAppear {
+  from { opacity: 0; transform: translateY(calc(var(--q-y) * 0.7)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes quotesSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes quotesLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes quotesShine {
+  from { transform: translateX(-130%) skewX(-20deg); }
+  to { transform: translateX(380%) skewX(-20deg); }
+}
+
+@keyframes quotesFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+
+@keyframes quotesRing {
+  0% { box-shadow: 0 0 0 2px var(--q-orange-line), 0 0 0 2px rgba(var(--q-orange-rgb), 0.5); }
+  70%, 100% { box-shadow: 0 0 0 2px var(--q-orange-line), 0 0 0 10px rgba(var(--q-orange-rgb), 0); }
+}
+
+@keyframes quotesDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Animaciones continuas: solo si el sistema permite movimiento */
+@media (prefers-reduced-motion: no-preference) {
+  .quotes-empty > span {
+    animation: quotesFloat 3.6s ease-in-out infinite;
+  }
+
+  /* El evento más reciente del historial late */
+  .quote-history-item:first-child .quote-history-dot {
+    animation: quotesRing 2.4s ease-out infinite;
+  }
+
+  .quote-status.pendiente::before,
+  .quote-status.revision::before {
+    animation: quotesDot 1.6s ease-in-out infinite;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  .quotes-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .quotes-page {
+    padding: 0;
+  }
+
+  /* La primera columna (código) queda fija al desplazar la tabla */
+  .quotes-table th:first-child,
+  .quotes-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: #fff;
+    box-shadow: 6px 0 10px -8px rgba(23, 27, 31, 0.18);
+  }
+
+  .quotes-table th:first-child {
+    background: #f3f5f6;
+  }
+
+  .quotes-table tbody tr:hover td:first-child {
+    background: #fff8f3;
+    box-shadow:
+      inset 3px 0 var(--q-orange),
+      6px 0 10px -8px rgba(23, 27, 31, 0.18);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MÓVIL
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .quotes-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .quotes-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .quotes-refresh {
+    width: 100%;
+  }
+
+  .quotes-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .quote-stat {
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .quote-stat-icon {
+    width: 37px;
+    height: 37px;
+    font-size: 1.1rem;
+  }
+
+  .quote-stat span {
+    font-size: 0.68rem;
+  }
+
+  .quote-stat strong {
+    font-size: 1.4rem;
+  }
+
+  .quotes-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .quotes-search input,
+  .quotes-toolbar > select,
+  .quote-status-form select,
+  .quote-status-form textarea {
+    font-size: 1rem; /* evita el zoom automático en iOS */
+  }
+
+  .quotes-toolbar > select {
+    width: 100%;
+  }
+
+  .quotes-table-heading {
+    padding: 18px;
+  }
+
+  .quotes-table th,
+  .quotes-table td {
+    padding: 13px;
+  }
+
+  .quotes-error {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  /* El modal se comporta como una hoja inferior */
+
+  .quote-modal-overlay {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  .quote-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 94vh !important;
+    max-height: 94dvh !important;
+    border-radius: 18px 18px 0 0 !important;
+    animation-name: quoteSheetAppear;
+  }
+
+  .quote-modal-header {
+    padding: 22px 20px 18px;
+  }
+
+  .quote-modal-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .quote-modal-body {
+    padding: 17px;
+  }
+
+  .quote-detail-section {
+    margin-bottom: 15px;
+    padding: 16px;
+  }
+
+  .quote-info-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .quote-product-row {
+    align-items: flex-start;
+  }
+
+  .quote-save-button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — PANTALLAS PEQUEÑAS
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .quotes-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .quote-modal-header {
+    padding: 19px 17px 16px;
+  }
+
+  .quote-modal-body {
+    padding: 13px;
+  }
+
+  .quote-detail-section {
+    padding: 13px;
+  }
+}
+
+/* =========================================================
+   ACCESIBILIDAD — MOVIMIENTO REDUCIDO
+   Se conservan los fundidos suaves; se eliminan los
+   desplazamientos y las animaciones en bucle.
+   Los spinners de carga se mantienen porque son funcionales.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --q-y: 0px;
+  }
+
+  .quote-save-button:hover::after {
+    animation: none;
+  }
+
+  .quote-modal {
+    animation-name: quoteOverlayAppear;
+  }
+}
