@@ -16,7 +16,7 @@ require('dotenv').config({
 const { Pool } = require('pg');
 
 // =====================================================
-// CONFIGURACIÓN DE CONEXIÓN
+// CONFIGURACIÓN DEL PUERTO
 // =====================================================
 
 const puertoDB = Number(process.env.DB_PORT || 5432);
@@ -31,6 +31,20 @@ if (
     );
 }
 
+// =====================================================
+// CONFIGURACIÓN SSL
+// =====================================================
+
+// En Neon: DB_SSL=true
+// En PostgreSQL local: DB_SSL=false
+
+const sslHabilitado =
+    String(process.env.DB_SSL || 'false').toLowerCase() === 'true';
+
+// =====================================================
+// CONFIGURACIÓN DE CONEXIÓN
+// =====================================================
+
 const configuracion = {
     host: process.env.DB_HOST,
     port: puertoDB,
@@ -38,17 +52,21 @@ const configuracion = {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
 
+    // Configuración SSL para conexiones remotas.
+    ssl: sslHabilitado
+        ? { rejectUnauthorized: true }
+        : false,
+
     // Límite máximo de conexiones simultáneas.
     max: 10,
 
-    // Tiempo máximo que una conexión inactiva
-    // puede permanecer en el pool.
+    // Tiempo máximo de conexión inactiva.
     idleTimeoutMillis: 30000,
 
     // Tiempo máximo para obtener una conexión.
-    connectionTimeoutMillis: 5000,
+    connectionTimeoutMillis: 10000,
 
-    // Nombre identificador de la aplicación en PostgreSQL.
+    // Identificador de la aplicación en PostgreSQL.
     application_name: 'TUSA_WOOD_API'
 };
 
